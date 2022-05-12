@@ -1,49 +1,51 @@
-import java.io.ObjectInputFilter;
+
+
+import Animal.*;
+import Plants.Plants;
+
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class IslandMap {
 
 
 
-    public static Object [][] createIslandMap(int height, int width) {
-        Object[][] islandMaps = new HashMap[height][width];
+    public static Cell [][] createIslandMap(int height, int width) {
+        Cell[][] islandMap = new Cell[height][width];
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
 
-                islandMaps[i][j] = IslandMap.getMapOfPopulation();
+                islandMap[i][j].map = IslandMap.getMapOfPopulation();
 
 
             }
             System.out.println();
         }
-        return islandMaps;
+        return islandMap;
     }
 
-    public static PopulationIslands getPopulationIsland(PopulationIlandsTypes type) {
-        PopulationIslands populationIslands = null;
+    public static Object getPopulationIsland(PopulationIlandsTypes type) {
+       Object obj = null;
         switch (type) {
-            case PLANTS -> populationIslands = new Plants();
-            case BEAR -> populationIslands = new Bear();
-            case KANGAROO -> populationIslands = new Kangaroo();
-            case CATERPILLAR -> populationIslands = new Caterpillar();
-            case DEER -> populationIslands = new Deer();
-            case DUCK -> populationIslands = new Duck();
-            case EAGLE -> populationIslands = new Eagle();
-            case FOX -> populationIslands = new Fox();
-            case GOAT -> populationIslands = new Goat();
-            case HAMSTER -> populationIslands = new Hamster();
-            case HORSE -> populationIslands = new Horse();
-            case RABBIT -> populationIslands = new Rabbit();
-            case SHEEP -> populationIslands = new Sheep();
-            case SNAKE -> populationIslands = new Snake();
-            case WOLF -> populationIslands = new Wolf();
-            case COW -> populationIslands = new Cow();
+            case PLANTS -> obj = new Plants();
+            case BEAR -> obj = new Bear();
+            case KANGAROO -> obj = new Kangaroo();
+            case CATERPILLAR -> obj = new Caterpillar();
+            case DEER -> obj = new Deer();
+            case DUCK -> obj = new Duck();
+            case EAGLE -> obj = new Eagle();
+            case FOX -> obj = new Fox();
+            case GOAT -> obj = new Goat();
+            case HAMSTER -> obj = new Hamster();
+            case HORSE -> obj = new Horse();
+            case RABBIT -> obj = new Rabbit();
+            case SHEEP -> obj = new Sheep();
+            case SNAKE -> obj = new Snake();
+            case WOLF -> obj = new Wolf();
+            case COW -> obj = new Cow();
         }
 
-        return populationIslands;
+        return obj;
     }
 
     public static int getRandomNumber() {
@@ -51,22 +53,24 @@ public class IslandMap {
         return a;
     }
 
-    public static Map<String, List<PopulationIslands>> getMapOfPopulation() {
-        Map<String, List<PopulationIslands>> map = new HashMap<>();
+    public static Map<String, List<Object>> getMapOfPopulation() {
+        Map<String, List<Object>> map = new HashMap<>();
         PopulationIlandsTypes[] types = PopulationIlandsTypes.values();
-        ArrayList<PopulationIslands> arrayList = new ArrayList<>();
+        ArrayList<Object> arrayList = new ArrayList<>();
        // System.out.print("{***");
         for (int i = 0; i < types.length; i++) {
             int numberOfRandom = getRandomNumber();
+            int numberOfRandomForPlants = getRandomNumber();
             if (numberOfRandom > types[i].maximumPopulationType) {
                 numberOfRandom = types[i].maximumPopulationType;
             }
             int count = 1;
-            PopulationIslands type = getPopulationIsland(types[i]);
+            Object type = getPopulationIsland(types[i]);
             while (count <= numberOfRandom) {
                 arrayList.add(type);
                 count++;
             }
+
             System.out.print(" [" + types[i].avatar + "(" + types[i] + ")" + " = " + arrayList.size() + "] ");
             map.put(types[i].avatar, arrayList);
 

@@ -1,4 +1,5 @@
 public enum PopulationIlandsTypes {
+
     PLANTS("\uD83C\uDF3F", 10000),
     BEAR("\uD83D\uDC3B", 7),
     KANGAROO("\uD83E\uDD98", 149),
@@ -17,8 +18,10 @@ public enum PopulationIlandsTypes {
     COW("\uD83D\uDC2E", 20) ;
 
 
-    String avatar;
-    int maximumPopulationType;
+    public int maximumPopulationType;
+    public String avatar;
+
+
 
     PopulationIlandsTypes (String avatar, int maximumPopulationType){
         this.avatar=avatar;
