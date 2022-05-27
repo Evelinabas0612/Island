@@ -1,21 +1,18 @@
-
-
 import Animal.*;
-import Plants.Plants;
+import Plants.*;
 
 import java.util.*;
 
 public class IslandMap {
 
 
-
     public static Cell [][] createIslandMap(int height, int width) {
         Cell[][] islandMap = new Cell[height][width];
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-
-                islandMap[i][j].map = IslandMap.getMapOfPopulation();
+                    for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width; j++) {
+                        islandMap[i][j] = new Cell();
+                        islandMap[i][j].setMap(IslandMap.getMapOfPopulation());
 
 
             }
@@ -27,22 +24,22 @@ public class IslandMap {
     public static Object getPopulationIsland(PopulationIlandsTypes type) {
        Object obj = null;
         switch (type) {
-            case PLANTS -> obj = new Plants();
-            case BEAR -> obj = new Bear();
-            case KANGAROO -> obj = new Kangaroo();
-            case CATERPILLAR -> obj = new Caterpillar();
-            case DEER -> obj = new Deer();
-            case DUCK -> obj = new Duck();
-            case EAGLE -> obj = new Eagle();
-            case FOX -> obj = new Fox();
-            case GOAT -> obj = new Goat();
-            case HAMSTER -> obj = new Hamster();
-            case HORSE -> obj = new Horse();
-            case RABBIT -> obj = new Rabbit();
-            case SHEEP -> obj = new Sheep();
-            case SNAKE -> obj = new Snake();
-            case WOLF -> obj = new Wolf();
-            case COW -> obj = new Cow();
+            case PLANTS -> obj = new Plants(false, false);
+            case BEAR -> obj = new Bear(38.0, false, false, false);
+            case KANGAROO -> obj = new Kangaroo(7.0, false, false, false);
+            case CATERPILLAR -> obj = new Caterpillar(1.0, false, false, false);
+            case DEER -> obj = new Deer(26.0, false, false, false);
+            case DUCK -> obj = new Duck(1.0, false, false, false);
+            case EAGLE -> obj = new Eagle(1.0, false,false,false );
+            case FOX -> obj = new Fox(1.0, false, false, false);
+            case GOAT -> obj = new Goat(10.0, false, false, false);
+            case HAMSTER -> obj = new Hamster(1.0, false, false, false);
+            case HORSE -> obj = new Horse(45.0, false, false, false);
+            case RABBIT -> obj = new Rabbit(1.0, false,false, false);
+            case SHEEP -> obj = new Sheep(7.0, false, false, false);
+            case SNAKE -> obj = new Snake(1.0, false, false, false);
+            case WOLF -> obj = new Wolf(8.0,false,false,false);
+            case COW -> obj = new Cow(53.0, false, false, false);
         }
 
         return obj;
@@ -56,11 +53,12 @@ public class IslandMap {
     public static Map<String, List<Object>> getMapOfPopulation() {
         Map<String, List<Object>> map = new HashMap<>();
         PopulationIlandsTypes[] types = PopulationIlandsTypes.values();
-        ArrayList<Object> arrayList = new ArrayList<>();
+
        // System.out.print("{***");
         for (int i = 0; i < types.length; i++) {
+         //   arrayList.clear();
+            ArrayList<Object> arrayList = new ArrayList<>();
             int numberOfRandom = getRandomNumber();
-            int numberOfRandomForPlants = getRandomNumber();
             if (numberOfRandom > types[i].maximumPopulationType) {
                 numberOfRandom = types[i].maximumPopulationType;
             }
@@ -74,37 +72,16 @@ public class IslandMap {
             System.out.print(" [" + types[i].avatar + "(" + types[i] + ")" + " = " + arrayList.size() + "] ");
             map.put(types[i].avatar, arrayList);
 
-            arrayList.clear();
+
         }
         //System.out.println("***}");
+
         return map;
     }
 
-   public static Map move(int direction, int speed, int maxSpeed, Object[][] mas) {
-       Map<Object,Object> newMap = new HashMap<>();
-        for (int i = 0; i < mas.length; i++) {
-            for (int j = 0; j < mas[i].length; j++) {
-               Cell cell = new Cell(i,j);
-               newMap.put(cell, mas[j]);
-                for (Object o : newMap.keySet()) {
 
 
-                System.out.print(newMap);
-            }
-   /*                    .forEach(s ->
-                               {
-                                   if (s !=null) newMap.put(toKey.apply(s[0]), toValue.apply(s[1]));
-                               } );
-
-                 //System.out.print(s));
-               //Arrays.stream(mas[j]).collect(Collectors.toMap(p -> p.k, p -> p.v));
-              //  map.entrySet().stream().map(Map.Entry::copyOf).toList()
-*/
-            }
-            System.out.println();
-        }
-        return newMap;
     }
-}
+
 
 

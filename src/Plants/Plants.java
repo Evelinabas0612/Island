@@ -5,8 +5,29 @@ public class Plants{
     private static String avatarPlants = "\uD83C\uDF3F";
     private String namePlants = "plants";
     private Double weightPlants = 1.0;
-    public boolean isEaten = false;
-    public boolean isExtra = false;
+    private boolean isEaten;
+    private boolean isExtra;
+
+    public Plants(boolean isEaten, boolean isExtra) {
+        this.isEaten = isEaten;
+        this.isExtra = isExtra;
+    }
+
+    public boolean isEaten() {
+        return isEaten;
+    }
+
+    public void setEaten(boolean eaten) {
+        isEaten = eaten;
+    }
+
+    public boolean isExtra() {
+        return isExtra;
+    }
+
+    public void setExtra(boolean extra) {
+        isExtra = extra;
+    }
 
     public static int getMaximum() {
         return maximum;
@@ -37,6 +58,6 @@ public class Plants{
 
 
     public Plants reproduction() {
-        return new Plants();
+        return new Plants(false, false);
     }
 }

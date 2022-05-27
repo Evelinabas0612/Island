@@ -1,12 +1,47 @@
 package Animal;
 
+import java.util.List;
+import java.util.Map;
+
 public class Eagle extends Animal {
+    private Double currentTact;
     private String nameAnimal = "eagle";
     private Double weightAnimal = 6.0;
     private int maxSpeedAnimal = 4;
     private Double fullSaturationAnimal = 1.0;
     private int maxTactAnimal = 5;
     private String avatarAnimal = "\uD83E\uDD85";
+    public Map mapOfMenu = Map.of(new Fox(1.0, false, false, false),10, new Rabbit(1.0, false, false, false), 90, new Hamster(1.0, false, false, false), 90, new Duck(1.0, false, false, false), 80);
+    private boolean isEaten;
+    private boolean isExtra;
+    private boolean isWeek;
+
+    public Eagle(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
+        super(currentTact);
+        this.isEaten = isEaten;
+        this.isExtra = isExtra;
+        this.isWeek = isWeek;
+    }
+
+    @Override
+    public Double getCurrentTact() {
+        return currentTact;
+    }
+
+    @Override
+    public void setCurrentTact(Double currentTact) {
+        this.currentTact = currentTact;
+    }
+
+    @Override
+    public boolean isWeek() {
+        return isWeek;
+    }
+
+    @Override
+    public void setWeek(boolean week) {
+        isWeek = week;
+    }
 
     public String getNameAnimal() {
         return nameAnimal;
@@ -56,14 +91,40 @@ public class Eagle extends Animal {
         this.avatarAnimal = avatarAnimal;
     }
 
-    public boolean isEaten = false;
-    public boolean isExtra = false;
 
+    @Override
+    public boolean isEaten() {
+        return isEaten;
+    }
 
+    @Override
+    public void setEaten(boolean eaten) {
+        isEaten = eaten;
 
+    }
+
+    @Override
+    public boolean isExtra() {
+        return isExtra;
+    }
+
+    @Override
+    public void setExtra(boolean extra) {
+        isExtra = extra;
+    }
 
     @Override
     public Eagle reproduction() {
-        return new Eagle();
+        return new Eagle(1.0, false, false, false);
+    }
+
+    @Override
+    List<Animal> move(Map<String, List<Object>> map) {
+        return null;
+    }
+
+    @Override
+    void end(Map<String, List<Object>> map) {
+
     }
 }
