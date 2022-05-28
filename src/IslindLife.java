@@ -73,7 +73,7 @@ public class IslindLife {
 
                     if (!list.isEmpty() && list.size() % 2 == 0) {
                         int size = list.size() / 2;
-                        int count = 1;
+                        int count =  new Random().nextInt(0, size);
                         List listType = new ArrayList<>();
                         while (count <= size) {
 

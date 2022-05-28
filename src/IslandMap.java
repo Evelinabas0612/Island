@@ -63,8 +63,9 @@ public class IslandMap {
                 numberOfRandom = types[i].maximumPopulationType;
             }
             int count = 1;
-            Object type = getPopulationIsland(types[i]);
+
             while (count <= numberOfRandom) {
+                Object type = getPopulationIsland(types[i]);
                 arrayList.add(type);
                 count++;
             }
