@@ -1,6 +1,6 @@
 package Plants;
 
-public class Plants{
+public class Plants {
     private static int maximum = 10000;
     private static String avatarPlants = "\uD83C\uDF3F";
     private String namePlants = "plants";
@@ -32,6 +32,7 @@ public class Plants{
     public static int getMaximum() {
         return maximum;
     }
+
     public String getNamePlants() {
         return namePlants;
     }
@@ -57,7 +58,4 @@ public class Plants{
     }
 
 
-    public Plants reproduction() {
-        return new Plants(false, false);
-    }
 }

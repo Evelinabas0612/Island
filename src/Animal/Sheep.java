@@ -133,22 +133,35 @@ public class Sheep extends Animal implements Herbivore {
     @Override
     public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
         Integer countEatenPlants = 0;
-        List listOfEatenPlants = new ArrayList();
+        //List <Plants> listOfEatenPlants = new ArrayList();
         Sheep sheep = (Sheep) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
         Plants indexOfListFood = listFood.get(0);;
         //Integer proc = (Integer) mapOfMenu.get(indexOfListFood);
-        if(sheep.fullSaturationAnimal <= this.getFullSaturationAnimal()) {
+        if(sheep.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
-            double fullSaturationNow = sheep.fullSaturationAnimal;
+            double fullSaturationNow = sheep.getFullSaturationAnimal();
 
             Iterator iterator = listCellAnimal.iterator();
             while (iterator.hasNext()) {
-                List<Object> listIterator = (List<Object>) iterator.next();
-                if (listIterator.get(0).getClass().equals(listFood.get(0).getClass())) {
-                    Collection<Object> collection = listIterator;
-                    listOfEatenPlants = (collection.stream().takeWhile(object -> object.getClass().equals(listFood.get(0).getClass()) && listFood.get(0).isEaten() == false).findFirst().stream().toList());
 
+                List<Object> iteratorList = (List<Object>) iterator.next();
+                if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(0).getClass())) {
+
+                    ListIterator litrSub = iteratorList.listIterator();
+                    while (litrSub.hasNext()) {
+                        Plants plantsOfEaten = (Plants) litrSub.next();
+                        if (!plantsOfEaten.isEaten()) {
+                            plantsOfEaten.setEaten(true);
+                            System.out.println(plantsOfEaten);
+                            countEatenPlants++;
+
+
+                        } else {
+                            continue;
+                        }
+                        break;
+                    }
                 }
             }
                 if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
@@ -162,11 +175,6 @@ public class Sheep extends Animal implements Herbivore {
 
 
             }
-        Plants plantsFood =(Plants) listOfEatenPlants.get(0);
-
-        plantsFood.setEaten(true);
-        System.out.println(plantsFood + "$$$$$$$" + plantsFood.isEaten());
-        countEatenPlants ++;
 
         return countEatenPlants;
 

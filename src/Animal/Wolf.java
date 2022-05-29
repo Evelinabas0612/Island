@@ -1,6 +1,8 @@
 package Animal;
 
 
+import Plants.Plants;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
@@ -131,6 +133,7 @@ public class Wolf extends Animal implements Predator {
 
     }
 
+
     @Override
     public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
         Integer countEatenAnimal = 0;
@@ -142,37 +145,44 @@ public class Wolf extends Animal implements Predator {
         Integer proc = (Integer) mapOfMenu.get(listFood.get(number));
         int randBeEaten = new Random().nextInt(0, 101);
         if (randBeEaten <= proc) {
-            if (wolf.fullSaturationAnimal <= this.getFullSaturationAnimal()) {
-             //   AtomicReference<Double> fullSaturationNow = new AtomicReference<>(wolf.fullSaturationAnimal);
+            if (wolf.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+
                 double calories = randomIndexOfListFood.getWeightAnimal();
-                double fullSaturationNow = wolf.fullSaturationAnimal;
+                double fullSaturationNow = wolf.getFullSaturationAnimal();
 
                 Iterator iterator = listCellAnimal.iterator();
                 while (iterator.hasNext()) {
-                    List<Object> listIterator = (List<Object>) iterator.next();
-                    if (listIterator.get(0).getClass().equals(listFood.get(number).getClass())) {
-                        Collection<Object> collection = listIterator;
-                        listOfEatenAnimal = (collection.stream().takeWhile(object -> object.getClass().equals(listFood.get(number).getClass()) && listFood.get(number).isEaten() == false).findFirst().stream().toList());
+                    List<Object> iteratorList = (List<Object>) iterator.next();
+                    if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(number).getClass())) {
+                        ListIterator litrSub = iteratorList.listIterator();
+                        while (litrSub.hasNext()) {
+                            Animal animalOfEaten = (Animal) litrSub.next();
+                            if (!animalOfEaten.isEaten()) {
+                                animalOfEaten.setEaten(true);
+                                System.out.println(animalOfEaten);
+                                countEatenAnimal++;
 
+
+                            } else {
+                                continue;
+                            }
+                            break;
+                        }
                     }
                 }
-                        if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
-                            fullSaturationNow=fullSaturationNow + calories;
-                        } else {
+                if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                    fullSaturationNow = fullSaturationNow + calories;
+                } else {
 
-                            fullSaturationNow = fullSaturationAnimal;
-                        }
+                    fullSaturationNow = fullSaturationAnimal;
+                }
 
-                        wolf.setFullSaturationAnimal(fullSaturationNow);
+                wolf.setFullSaturationAnimal(fullSaturationNow);
 
 
-                    }
-            Animal animalFood = (Animal)listOfEatenAnimal.get(0);
-            animalFood.setEaten(true);
-            System.out.println(animalFood + "$$$$$$$" + animalFood.isEaten());
-            countEatenAnimal++;
             }
 
+        }
 
         return countEatenAnimal;
 

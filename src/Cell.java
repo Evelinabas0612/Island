@@ -7,6 +7,13 @@ public class Cell {
     private int width;
     private Map<String, List<Object>> map;
 
+    public Cell(int height, int width) {
+    }
+
+    public Cell() {
+
+    }
+
     public Map<String, List<Object>> getMap() {
         return map;
     }
