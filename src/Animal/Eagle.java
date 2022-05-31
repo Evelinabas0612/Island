@@ -1,9 +1,8 @@
 package Animal;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Eagle extends Animal {
+public class Eagle extends Animal implements Predator{
     private Integer maxOnCell = 20;
     private String nameAnimal = "eagle";
     private Double weightAnimal = 6.0;
@@ -125,4 +124,60 @@ public class Eagle extends Animal {
     void end(Map<String, List<Object>> map) {
 
     }
+
+    @Override
+    public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
+        Integer countEatenAnimal = 0;
+
+        Eagle eagle = (Eagle) animal;
+        int number = new Random().nextInt(0, mapOfMenu.size());
+        List<Animal> listFood = new ArrayList(mapOfMenu.keySet());
+        Animal randomIndexOfListFood = listFood.get(number);
+        Integer proc = (Integer) mapOfMenu.get(listFood.get(number));
+        int randBeEaten = new Random().nextInt(0, 101);
+        if (randBeEaten <= proc) {
+            if (eagle.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+
+                double calories = randomIndexOfListFood.getWeightAnimal();
+                double fullSaturationNow = eagle.getFullSaturationAnimal();
+
+                Iterator iterator = listCellAnimal.iterator();
+                while (iterator.hasNext()) {
+                    List<Object> iteratorList = (List<Object>) iterator.next();
+                    if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(number).getClass())) {
+                        ListIterator litrSub = iteratorList.listIterator();
+                        while (litrSub.hasNext()) {
+                            Animal animalOfEaten = (Animal) litrSub.next();
+                            if (!animalOfEaten.isEaten()) {
+                                animalOfEaten.setEaten(true);
+
+                                countEatenAnimal++;
+
+
+                            } else {
+                                continue;
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                    fullSaturationNow = fullSaturationNow + calories;
+                } else {
+
+                    fullSaturationNow = fullSaturationAnimal;
+                }
+
+                eagle.setFullSaturationAnimal(fullSaturationNow);
+
+
+            }
+
+        }
+
+        return countEatenAnimal;
+
+    }
+
 }
+

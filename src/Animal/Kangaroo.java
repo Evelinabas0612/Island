@@ -2,10 +2,9 @@ package Animal;
 
 import Plants.Plants;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Kangaroo extends Animal{
+public class Kangaroo extends Animal implements Herbivore{
     private Integer maxOnCell = 149;
     private String nameAnimal = "kangaroo";
     private Double weightAnimal = 47.0;
@@ -128,4 +127,55 @@ public class Kangaroo extends Animal{
     void end(Map<String, List<Object>> map) {
 
     }
+
+    @Override
+    public Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal) {
+        Integer countEatenPlants = 0;
+
+        Kangaroo kangaroo = (Kangaroo) animal;
+        List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
+        Plants indexOfListFood = listFood.get(0);;
+
+        if(kangaroo.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+            double calories = indexOfListFood.getWeightPlants();
+            double fullSaturationNow = kangaroo.getFullSaturationAnimal();
+
+            Iterator iterator = listCellAnimal.iterator();
+            while (iterator.hasNext()) {
+
+                List<Object> iteratorList = (List<Object>) iterator.next();
+                if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(0).getClass())) {
+
+                    ListIterator litrSub = iteratorList.listIterator();
+                    while (litrSub.hasNext()) {
+                        Plants plantsOfEaten = (Plants) litrSub.next();
+                        if (!plantsOfEaten.isEaten()) {
+                            plantsOfEaten.setEaten(true);
+
+                            countEatenPlants++;
+
+
+                        } else {
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                fullSaturationNow = fullSaturationNow + calories;
+            } else {
+
+                fullSaturationNow = fullSaturationAnimal;
+            }
+            kangaroo.setFullSaturationAnimal(fullSaturationNow);
+
+
+
+        }
+
+        return countEatenPlants;
+
+    }
+
 }

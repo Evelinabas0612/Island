@@ -2,10 +2,9 @@ package Animal;
 
 import Plants.Plants;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Cow extends Animal{
+public class Cow extends Animal implements Herbivore{
     private Integer maxOnCell = 20;;
     private String nameAnimal = "cow";
     private Double weightAnimal = 350.0;
@@ -133,4 +132,55 @@ public class Cow extends Animal{
     void end(Map<String, List<Object>> map) {
 
     }
-}
+
+    @Override
+    public Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal) {
+        Integer countEatenPlants = 0;
+
+        Cow cow = (Cow) animal;
+        List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
+        Plants indexOfListFood = listFood.get(0);;
+
+        if(cow.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+            double calories = indexOfListFood.getWeightPlants();
+            double fullSaturationNow = cow.getFullSaturationAnimal();
+
+            Iterator iterator = listCellAnimal.iterator();
+            while (iterator.hasNext()) {
+
+                List<Object> iteratorList = (List<Object>) iterator.next();
+                if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(0).getClass())) {
+
+                    ListIterator litrSub = iteratorList.listIterator();
+                    while (litrSub.hasNext()) {
+                        Plants plantsOfEaten = (Plants) litrSub.next();
+                        if (!plantsOfEaten.isEaten()) {
+                            plantsOfEaten.setEaten(true);
+
+                            countEatenPlants++;
+
+
+                        } else {
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                fullSaturationNow = fullSaturationNow + calories;
+            } else {
+
+                fullSaturationNow = fullSaturationAnimal;
+            }
+            cow.setFullSaturationAnimal(fullSaturationNow);
+
+
+
+        }
+
+        return countEatenPlants;
+
+    }
+    }
+

@@ -1,5 +1,6 @@
 import Animal.Animal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ public class Cell {
     private int height;
     private int width;
     private Map <String, List<Object>> map;
-    private List <Animal> mapOfMove;
+    private List <Animal> mapOfMove = new ArrayList<>();
 
     public Map<String, List<Object>> getMap() {
         return map;

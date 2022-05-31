@@ -1,8 +1,25 @@
 package Plants;
 
 public class Plants {
-    private static Integer maxOnCell = 10000;
-    private static String avatarPlants = "\uD83C\uDF3F";
+    private  Integer maxOnCell = 10000;
+
+    public Integer getMaxOnCell() {
+        return maxOnCell;
+    }
+
+    public void setMaxOnCell(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
+    }
+
+    public String getAvatarPlants() {
+        return avatarPlants;
+    }
+
+    public void setAvatarPlants(String avatarPlants) {
+        this.avatarPlants = avatarPlants;
+    }
+
+    private String avatarPlants = "\uD83C\uDF3F";
     private String namePlants = "plants";
     private Double weightPlants = 1.0;
     private boolean isEaten = false;
@@ -48,13 +65,7 @@ public class Plants {
         this.weightPlants = weightPlants;
     }
 
-    public static String getAvatarPlants() {
-        return avatarPlants;
-    }
 
-    public void setAvatarPlants(String avatarPlants) {
-        this.avatarPlants = avatarPlants;
-    }
 
 
 }

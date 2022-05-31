@@ -2,10 +2,9 @@ package Animal;
 
 import Plants.Plants;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Horse extends Animal {
+public class Horse extends Animal implements Herbivore{
     private Integer maxOnCell = 23;
     private String nameAnimal = "horse";
     private Double weightAnimal = 300.0;
@@ -127,4 +126,55 @@ public class Horse extends Animal {
     void end(Map<String, List<Object>> map) {
 
     }
+
+    @Override
+    public Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal) {
+        Integer countEatenPlants = 0;
+
+        Horse horse = (Horse) animal;
+        List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
+        Plants indexOfListFood = listFood.get(0);;
+
+        if(horse.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+            double calories = indexOfListFood.getWeightPlants();
+            double fullSaturationNow = horse.getFullSaturationAnimal();
+
+            Iterator iterator = listCellAnimal.iterator();
+            while (iterator.hasNext()) {
+
+                List<Object> iteratorList = (List<Object>) iterator.next();
+                if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(0).getClass())) {
+
+                    ListIterator litrSub = iteratorList.listIterator();
+                    while (litrSub.hasNext()) {
+                        Plants plantsOfEaten = (Plants) litrSub.next();
+                        if (!plantsOfEaten.isEaten()) {
+                            plantsOfEaten.setEaten(true);
+
+                            countEatenPlants++;
+
+
+                        } else {
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                fullSaturationNow = fullSaturationNow + calories;
+            } else {
+
+                fullSaturationNow = fullSaturationAnimal;
+            }
+            horse.setFullSaturationAnimal(fullSaturationNow);
+
+
+
+        }
+
+        return countEatenPlants;
+
+    }
+
 }

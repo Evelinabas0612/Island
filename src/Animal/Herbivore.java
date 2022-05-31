@@ -6,5 +6,5 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface Herbivore {
-    Integer eat(Animal animal, List<List<Object>> listCellAnimal);
+    Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal);
 }

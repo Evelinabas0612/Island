@@ -129,9 +129,9 @@ public class Sheep extends Animal implements Herbivore {
     }
 
     @Override
-    public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
+    public Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal) {
         Integer countEatenPlants = 0;
-        //List <Plants> listOfEatenPlants = new ArrayList();
+
         Sheep sheep = (Sheep) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
         Plants indexOfListFood = listFood.get(0);;

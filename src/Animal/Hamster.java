@@ -2,10 +2,9 @@ package Animal;
 
 import Plants.Plants;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Hamster extends Animal{
+public class Hamster extends Animal implements Herbivore{
     private Integer maxOnCell = 500;
     private String nameAnimal = "hamster";
     private Double weightAnimal = 0.03;
@@ -134,4 +133,55 @@ public class Hamster extends Animal{
     void end(Map<String, List<Object>> map) {
 
     }
+
+    @Override
+    public Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal) {
+        Integer countEatenPlants = 0;
+
+        Hamster hamster = (Hamster) animal;
+        List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
+        Plants indexOfListFood = listFood.get(0);;
+
+        if(hamster.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+            double calories = indexOfListFood.getWeightPlants();
+            double fullSaturationNow = hamster.getFullSaturationAnimal();
+
+            Iterator iterator = listCellAnimal.iterator();
+            while (iterator.hasNext()) {
+
+                List<Object> iteratorList = (List<Object>) iterator.next();
+                if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(0).getClass())) {
+
+                    ListIterator litrSub = iteratorList.listIterator();
+                    while (litrSub.hasNext()) {
+                        Plants plantsOfEaten = (Plants) litrSub.next();
+                        if (!plantsOfEaten.isEaten()) {
+                            plantsOfEaten.setEaten(true);
+
+                            countEatenPlants++;
+
+
+                        } else {
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                fullSaturationNow = fullSaturationNow + calories;
+            } else {
+
+                fullSaturationNow = fullSaturationAnimal;
+            }
+            hamster.setFullSaturationAnimal(fullSaturationNow);
+
+
+
+        }
+
+        return countEatenPlants;
+
+    }
+
 }

@@ -1,9 +1,8 @@
 package Animal;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Fox extends Animal{
+public class Fox extends Animal implements Predator{
     private Integer maxOnCell = 50;
     private String nameAnimal = "fox";
     private Double weightAnimal = 4.0;
@@ -124,4 +123,60 @@ public class Fox extends Animal{
     void end(Map<String, List<Object>> map) {
 
     }
+
+    @Override
+    public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
+        Integer countEatenAnimal = 0;
+
+        Fox fox = (Fox) animal;
+        int number = new Random().nextInt(0, mapOfMenu.size());
+        List<Animal> listFood = new ArrayList(mapOfMenu.keySet());
+        Animal randomIndexOfListFood = listFood.get(number);
+        Integer proc = (Integer) mapOfMenu.get(listFood.get(number));
+        int randBeEaten = new Random().nextInt(0, 101);
+        if (randBeEaten <= proc) {
+            if (fox.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+
+                double calories = randomIndexOfListFood.getWeightAnimal();
+                double fullSaturationNow = fox.getFullSaturationAnimal();
+
+                Iterator iterator = listCellAnimal.iterator();
+                while (iterator.hasNext()) {
+                    List<Object> iteratorList = (List<Object>) iterator.next();
+                    if (!iteratorList.isEmpty() && iteratorList.get(0).getClass().equals(listFood.get(number).getClass())) {
+                        ListIterator litrSub = iteratorList.listIterator();
+                        while (litrSub.hasNext()) {
+                            Animal animalOfEaten = (Animal) litrSub.next();
+                            if (!animalOfEaten.isEaten()) {
+                                animalOfEaten.setEaten(true);
+
+                                countEatenAnimal++;
+
+
+                            } else {
+                                continue;
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                    fullSaturationNow = fullSaturationNow + calories;
+                } else {
+
+                    fullSaturationNow = fullSaturationAnimal;
+                }
+
+                fox.setFullSaturationAnimal(fullSaturationNow);
+
+
+            }
+
+        }
+
+        return countEatenAnimal;
+
+    }
+
+
 }

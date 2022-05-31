@@ -7,10 +7,143 @@ import java.util.*;
 
 import java.util.stream.Stream;
 
-public class IslandLife {
+public class IslandLife implements Runnable{
+    private int day = 0;
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+//public ExecutorService executorService;
 
 
-    public Map<String, Integer> allEat(List<List<Object>> listCellAnimal) {
+        public Cell [][] createIslandMap(int height, int width) {
+            Cell[][] newMap = new Cell[height][width];
+
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    newMap[i][j] = new Cell();
+                    newMap[i][j].setMap(getMapOfPopulation());
+
+
+                }
+                }
+
+            printIsland(newMap);
+            return newMap;
+        }
+
+        public void oneDay(Cell[][] newMap){
+            int allNewbornForTact = 0;
+            int allDeleteForTact = 0;
+            int allEatenForTact = 0;
+            int allPlantsGrow = 0;
+            int allMigrant = 0;
+        //  executorService = Executors.newCachedThreadPool();
+
+            for (Cell[] cells : newMap) {
+                for (Cell cell : cells) {
+                        List<List<Object>> listCellAnimal = new ArrayList<>(cell.getMap().values());
+                        List <Object> listOfDeleteWeek = allDelete(listCellAnimal);
+                        Map<String,Integer> mapOfStatEaten = allEat(listCellAnimal);
+
+                        List <Object> listOfDeleteEaten = allDelete(listCellAnimal);
+
+                        List <Object> listNewborns = allReproduction(listCellAnimal);
+
+                        addNewborns(listNewborns, listCellAnimal);
+
+                        Integer countPlantsGrow = allPlantsGrow(listCellAnimal);
+
+                        allNewbornForTact += listNewborns.size();
+                        allDeleteForTact += listOfDeleteWeek.size() + listOfDeleteEaten.size();
+                        allEatenForTact += listOfDeleteEaten.size();
+                        allPlantsGrow += countPlantsGrow;
+                    }
+
+                }
+            System.out.println();
+            System.out.println("Статистика:");
+            System.out.println("Родилось всего животных:"+ allNewbornForTact);
+            System.out.println("Новые растения:"+ allPlantsGrow);
+            System.out.println("Вымерло всего: " + allDeleteForTact + " : из них съедено:" + allEatenForTact);
+
+            allMigrant += allMove(newMap);
+            addMigrants(newMap);
+
+            System.out.println("Всего переселилось:"+ allMigrant);
+            printIsland(newMap);
+
+
+        }
+
+
+
+    public static Object getPopulationIsland(PopulationIlandsTypes type) {
+        Object obj = null;
+        switch (type) {
+            case PLANTS -> obj = new Plants(1.0);
+            case BEAR -> obj = new Bear(250.0, 38.0);
+            case KANGAROO -> obj = new Kangaroo(47.0, 7.0);
+            case CATERPILLAR -> obj = new Caterpillar(0.01, 0.0025);
+            case DEER -> obj = new Deer(170.0, 26.0);
+            case DUCK -> obj = new Duck(1.0, 0.15);
+            case EAGLE -> obj = new Eagle(6.0, 1.0 );
+            case FOX -> obj = new Fox(4.0, 1.0);
+            case GOAT -> obj = new Goat(65.0, 10.0);
+            case HAMSTER -> obj = new Hamster(0.03, 0.075);
+            case HORSE -> obj = new Horse(300.0, 45.0);
+            case RABBIT -> obj = new Rabbit(3.0, 0.45);
+            case SHEEP -> obj = new Sheep(45.0, 7.0);
+            case SNAKE -> obj = new Snake(2.0, 0.03);
+            case WOLF -> obj = new Wolf(50.0, 8.0);
+            case COW -> obj = new Cow(350.0, 53.0);
+        }
+
+        return obj;
+    }
+
+    public static int getRandomNumber() {
+        int a = (int) (Math.random() * 1000);
+        return a;
+    }
+
+    public static Map<String, List<Object>> getMapOfPopulation() {
+        Map<String, List<Object>> map = new HashMap<>();
+        PopulationIlandsTypes[] types = PopulationIlandsTypes.values();
+
+
+        for (int i = 0; i < types.length; i++) {
+
+            ArrayList<Object> arrayList = new ArrayList<>();
+            int numberOfRandom = getRandomNumber();
+            if (numberOfRandom > types[i].maximumPopulationType) {
+                numberOfRandom = types[i].maximumPopulationType;
+            }
+            int count = 1;
+
+            while (count <= numberOfRandom) {
+                Object type = getPopulationIsland(types[i]);
+                arrayList.add(type);
+                count++;
+            }
+
+            //      System.out.print(" [" + types[i].avatar + "(" + types[i] + ")" + " = " + arrayList.size() + "] ");
+            map.put(types[i].avatar, arrayList);
+
+
+        }
+
+
+        return map;
+    }
+
+
+
+  public Map<String, Integer> allEat(List<List<Object>> listCellAnimal) {
         Integer staticOfEatenAnimal = 0;
         Integer staticOfEatenPlants = 0;
         Map<String, Integer> mapOfStat = new HashMap<>();
@@ -19,9 +152,9 @@ public class IslandLife {
 
                 if (list.get(i) instanceof Herbivore) {
                     Herbivore herbivore = (Herbivore) list.get(i);
-                    Integer foodPlants = herbivore.eat((Animal) herbivore, listCellAnimal);
+                    Integer foodPlants = herbivore.eatHerbivore((Animal) herbivore, listCellAnimal);
                     staticOfEatenPlants = staticOfEatenPlants + foodPlants;
-                    //    System.out.println("!!!!!!!!" + staticOfEatenPlants);
+
                 }
 
                 if (list.get(i) instanceof Predator) {
@@ -66,8 +199,9 @@ public class IslandLife {
         return listOfDelete;
     }
 
-    public void allMove(Cell[][] newMap) {
-        for (int i = 0; i < newMap.length; i++) {
+    public Integer allMove(Cell[][] newMap) {
+        Integer countMigrant = 0;
+        for (int i = 0; i < newMap.length-1; i++) {
             for (int j = 0; j < newMap[i].length; j++) {
 
                 List<List<Object>> listCellAnimal = new ArrayList<>(newMap[i][j].getMap().values());
@@ -97,6 +231,7 @@ public class IslandLife {
                                     listMove.add(animal);
                                     newMap[i - speedAnimalNow][j].setMapOfMove(listMove);
                                     animal.setExtra(true);
+                                    countMigrant++;
                                 }
                             }
                             if (numberMove == 2) {
@@ -108,6 +243,7 @@ public class IslandLife {
                                     listMove.add(animal);
                                     newMap[i + speedAnimalNow][j].setMapOfMove(listMove);
                                     animal.setExtra(true);
+                                    countMigrant++;
                                 }
                             }
                             if (numberMove == 3) {
@@ -119,6 +255,7 @@ public class IslandLife {
                                     listMove.add(animal);
                                     newMap[i][j - speedAnimalNow].setMapOfMove(listMove);
                                     animal.setExtra(true);
+                                    countMigrant++;
                                 }
 
                             }
@@ -131,6 +268,7 @@ public class IslandLife {
                                     listMove.add(animal);
                                     newMap[i][j + speedAnimalNow].setMapOfMove(listMove);
                                     animal.setExtra(true);
+                                    countMigrant++;
                                 }
                             }
                         }
@@ -139,7 +277,7 @@ public class IslandLife {
             }
         }
         // }
-        for (int i = 0; i < newMap.length - 1; i++) {
+        for (int i = 0; i < newMap.length; i++) {
             for (int j = 0; j < newMap[i].length; j++) {
 
                 Iterator iteratorForExtra = newMap[i][j].getMap().values().iterator();
@@ -161,6 +299,7 @@ public class IslandLife {
 
             }
         }
+        return countMigrant;
     }
 
     public List<Object> allReproduction(List<List<Object>> listCellAnimal) {
@@ -273,13 +412,13 @@ public class IslandLife {
                             List<Object> listOne = (List<Object>) iterList.next();
 
 
-                            if (!listOne.isEmpty() && listOne.get(0).getClass().equals(animalMove)) {
+                            if (!listOne.isEmpty() && listOne.get(0).getClass().equals(animalMove.getClass())) {
 
                                 Integer countMaxAnimal = animalMove.getCurrentTact();
                                 if (listOne.size() < countMaxAnimal) {
-                                    System.out.print("!!!!!!!!!!!!!" + listOne.size());
+
                                     listOne.add(animalMove);
-                                    System.out.println("!!!!!!!!!!!!!" + listOne.size() + "***" + animalMove);
+
                                 } else {
                                     continue;
                                 }
@@ -297,5 +436,40 @@ public class IslandLife {
             }
         }
 
+    }
+
+
+    public void printIsland(Cell[][] newMap){
+
+        for (Cell[] cells : newMap) {
+            for (Cell cell : cells) {
+                List<List<Object>> listCellAnimal = new ArrayList<>(cell.getMap().values());
+                ListIterator litr = listCellAnimal.listIterator();
+                while (litr.hasNext()) {
+                    List<Object> list = (List<Object>) litr.next();
+                    if (!list.isEmpty() && list.get(0).getClass().equals(Plants.class)){
+                        Plants plants = (Plants)list.get(0);
+                        String avatar = plants.getAvatarPlants();
+                        System.out.print(avatar);
+                    }
+                    if (!list.isEmpty() && !list.get(0).getClass().equals(Plants.class)){
+                        Animal animal= (Animal) list.get(0);
+                        String avatar = animal.getAvatarAnimal();
+                        System.out.print(avatar);
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    @Override
+    public void run() {
+           int newDay = getDay();
+           while (newDay<1000) {
+               System.out.println("День" + newDay);
+
+               newDay++;
+           }
     }
 }

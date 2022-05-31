@@ -1,47 +1,46 @@
 import Animal.Animal;
 
 import java.util.*;
+import java.util.concurrent.*;
 
 
 public class Island {
 
 
     public static void main(String[] args) {
-        Cell[][] newMap = IslandMap.createIslandMap(5, 5);
+
         IslandLife islandLife = new IslandLife();
-
-        for (Cell[] cells : newMap) {
-            for (Cell cell : cells) {
-
-                List<List<Object>> listCellAnimal = new ArrayList<>(cell.getMap().values());
+        Cell[][] newMap = islandLife.createIslandMap(5, 5);
 
 
-                List <Object> listOfDeleteWeek = islandLife.allDelete(listCellAnimal);
-                Map<String,Integer> mapOfStatEaten = islandLife.allEat(listCellAnimal);
+        for (int i = 0; i < 30; i++) {
+            Runnable runnable = () -> {
 
-                List <Object> listOfDeleteEaten = islandLife.allDelete(listCellAnimal);
+                islandLife.oneDay(newMap);
+            };
+            ExecutorService executorService = Executors.newCachedThreadPool();
+            executorService.submit(runnable);
 
-                List <Object> listNewborns = islandLife.allReproduction(listCellAnimal);
+            executorService.shutdown();
 
-                islandLife.addNewborns(listNewborns, listCellAnimal);
+            ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+            scheduledExecutorService.scheduleAtFixedRate(islandLife, 0, 5, TimeUnit.SECONDS);
+            scheduledExecutorService.shutdown();
 
-                Integer countPlantsGrow = islandLife.allPlantsGrow(listCellAnimal);
+    }
 
 
 
-            }
-
-                }
-        islandLife.allMove(newMap);
-        islandLife.addMigrants(newMap);
+    }
 
 
 
 
 
-            }
 
-        }
+
+
+    }
 
 
 

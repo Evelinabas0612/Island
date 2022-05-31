@@ -135,7 +135,7 @@ public class Wolf extends Animal implements Predator {
     @Override
     public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
         Integer countEatenAnimal = 0;
-        List listOfEatenAnimal = new ArrayList();
+
         Wolf wolf = (Wolf) animal;
         int number = new Random().nextInt(0, mapOfMenu.size());
         List<Animal> listFood = new ArrayList(mapOfMenu.keySet());
