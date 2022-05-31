@@ -4,32 +4,30 @@ import java.util.List;
 import java.util.Map;
 
 public class Fox extends Animal{
-    private Double currentTact;
+    private Integer maxOnCell = 50;
     private String nameAnimal = "fox";
     private Double weightAnimal = 4.0;
     private int maxSpeedAnimal = 3;
     private Double fullSaturationAnimal = 1.0;
     private int maxTactAnimal = 8;
     private String avatarAnimal = "\uD83E\uDD8A";
-    public Map mapOfMenu = Map.of(new Rabbit(1.0, false, false, false),90, new Hamster(1.0,false, false, false), 90, new Duck(0.15, false, false, false), 80);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Rabbit(3.0, 0.45),90, new Hamster(0.03, 0.075), 90, new Duck(1.0, 0.15), 80);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Fox(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Fox(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
 
     @Override
@@ -114,7 +112,7 @@ public class Fox extends Animal{
 
     @Override
    public Fox reproduction() {
-        return new Fox(1.0, false, false, false);
+        return new Fox(4.0, 1.0);
     }
 
     @Override

@@ -1,16 +1,15 @@
 package Plants;
 
 public class Plants {
-    private static int maximum = 10000;
+    private static Integer maxOnCell = 10000;
     private static String avatarPlants = "\uD83C\uDF3F";
     private String namePlants = "plants";
     private Double weightPlants = 1.0;
-    private boolean isEaten;
-    private boolean isExtra;
+    private boolean isEaten = false;
+    private boolean isExtra = false;
 
-    public Plants(boolean isEaten, boolean isExtra) {
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
+    public Plants(Double weightPlants) {
+        this.weightPlants = weightPlants;
     }
 
     public boolean isEaten() {
@@ -29,8 +28,8 @@ public class Plants {
         isExtra = extra;
     }
 
-    public static int getMaximum() {
-        return maximum;
+    public Integer getMaximum() {
+        return maxOnCell;
     }
 
     public String getNamePlants() {

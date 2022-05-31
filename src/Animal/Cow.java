@@ -6,33 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Cow extends Animal{
-    private Double currentTact;
+    private Integer maxOnCell = 20;;
     private String nameAnimal = "cow";
     private Double weightAnimal = 350.0;
     private int maxSpeedAnimal = 1;
     private Double fullSaturationAnimal = 53.0;
     private int maxTactAnimal = 4;
     private String avatarAnimal = "\uD83D\uDC2E";
-    public Map mapOfMenu = Map.of(new Plants(false, false), 100);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Plants(1.0), 100);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Cow(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Cow(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
 
     @Override
@@ -123,7 +121,7 @@ public class Cow extends Animal{
 
     @Override
     public Cow reproduction() {
-        return new Cow(53.0, false, false, false);
+        return new Cow(350.0, 53.0);
     }
 
     @Override

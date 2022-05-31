@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Animal {
-    private Double currentTact; //счетчик отчета падения потенциала
+    private Integer maxOnCell;
     private String nameAnimal;
     private Double weightAnimal;
     private int maxSpeedAnimal;
@@ -15,21 +15,17 @@ public abstract class Animal {
     private boolean isExtra; //не лишнее ли животное на клетке
     private boolean isWeek; //// пометка, что животное полностью истощено
 
-    public Animal(Double currentTact){//,boolean isEaten, boolean isExtra, boolean isWeek) {
-        this.currentTact = currentTact;
-       // this.isEaten = isEaten;
-       // this.isExtra = isExtra;
-       // this.isWeek = isWeek;
+    public Animal(Double weightAnimal, Double fullSaturationAnimal) {
+        this.weightAnimal = weightAnimal;
+        this.fullSaturationAnimal = fullSaturationAnimal;
     }
 
-
-
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell= maxOnCell;
     }
 
 

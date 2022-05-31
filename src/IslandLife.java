@@ -4,16 +4,16 @@ import Animal.Herbivore;
 import Plants.Plants;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+
 import java.util.stream.Stream;
 
 public class IslandLife {
 
 
-    public Map<String,Integer> allEat(List<List<Object>> listCellAnimal) {
+    public Map<String, Integer> allEat(List<List<Object>> listCellAnimal) {
         Integer staticOfEatenAnimal = 0;
         Integer staticOfEatenPlants = 0;
-        Map<String,Integer> mapOfStat = new HashMap<>();
+        Map<String, Integer> mapOfStat = new HashMap<>();
         for (List list : listCellAnimal) {
             for (int i = 0; i < list.size(); i++) {
 
@@ -28,7 +28,7 @@ public class IslandLife {
                     Predator predator = (Predator) list.get(i);
                     Integer foodAnimal = predator.eat((Animal) predator, listCellAnimal);
                     staticOfEatenAnimal = staticOfEatenAnimal + foodAnimal;
-                    //  System.out.println("!!!!!!!!" + staticOfEatenAnimal);
+
 
                 }
 
@@ -36,7 +36,7 @@ public class IslandLife {
             }
 
         }
-        mapOfStat.put("Predator",staticOfEatenAnimal);
+        mapOfStat.put("Predator", staticOfEatenAnimal);
         mapOfStat.put("Herbivore", staticOfEatenPlants);
         return mapOfStat;
     }
@@ -51,7 +51,7 @@ public class IslandLife {
                 ListIterator litrSub = list.listIterator();
                 while (litrSub.hasNext()) {
                     Animal animal = (Animal) litrSub.next();
-                    if (animal.isEaten() || animal.isExtra() || animal.isWeek()) {
+                    if (animal.isEaten() || animal.isWeek()) {
                         listOfDelete.add(animal);
                         litrSub.remove();
                     } else {
@@ -62,16 +62,15 @@ public class IslandLife {
             }
         }
 
-        //   System.out.println("=============" + listOfDelete);
+
         return listOfDelete;
     }
 
-    public Map<Cell, Animal> allMove(Cell[][] newMap, List<List<Object>> listCellAnimal) {
-        Map<Cell, Animal> cellMap = new HashMap<Cell, Animal>();
+    public void allMove(Cell[][] newMap) {
         for (int i = 0; i < newMap.length; i++) {
-            for (int j = 0; j < newMap.length; j++) {
-                Cell cell = new Cell(i, j);
-                Cell cellNew = new Cell();
+            for (int j = 0; j < newMap[i].length; j++) {
+
+                List<List<Object>> listCellAnimal = new ArrayList<>(newMap[i][j].getMap().values());
 
                 ListIterator litr = listCellAnimal.listIterator();
                 while (litr.hasNext()) {
@@ -81,8 +80,8 @@ public class IslandLife {
                         ListIterator litrSub = list.listIterator();
                         while (litrSub.hasNext()) {
                             Animal animal = (Animal) litrSub.next();
-                            animal.setFullSaturationAnimal(animal.getFullSaturationAnimal()-animal.getFullSaturationAnimal()*0.1);
-                            if(animal.getFullSaturationAnimal() <= 0){
+                            animal.setFullSaturationAnimal(animal.getFullSaturationAnimal() - animal.getFullSaturationAnimal() * 0.1);
+                            if (animal.getFullSaturationAnimal() <= 0) {
                                 animal.setWeek(true);
 
                             }
@@ -92,48 +91,77 @@ public class IslandLife {
                                 continue;
                             }
                             if (numberMove == 1) {
-                                if (cell.getHeight() - speedAnimalNow >= 0) {
-                                    cellNew.setHeight(cell.getHeight() - speedAnimalNow);
-                                    cellNew.setWidth(cell.getWidth());
-                                    cellMap.put(cellNew, animal);
-                                    litrSub.remove();
+                                int height = i - speedAnimalNow;
+                                if (height >= 0) {
+                                    List <Animal> listMove = newMap[i - speedAnimalNow][j].getMapOfMove();
+                                    listMove.add(animal);
+                                    newMap[i - speedAnimalNow][j].setMapOfMove(listMove);
+                                    animal.setExtra(true);
                                 }
                             }
                             if (numberMove == 2) {
-                                if (cell.getHeight() + speedAnimalNow < newMap.length) {
-                                    cellNew.setHeight(cell.getHeight() + speedAnimalNow);
-                                    cellNew.setWidth(cell.getWidth());
-                                    cellMap.put(cellNew, animal);
-                                    litrSub.remove();
+                                int height = i + speedAnimalNow;
+
+                                if (height < newMap.length) {
+
+                                    List <Animal> listMove = newMap[i + speedAnimalNow][j].getMapOfMove();
+                                    listMove.add(animal);
+                                    newMap[i + speedAnimalNow][j].setMapOfMove(listMove);
+                                    animal.setExtra(true);
                                 }
                             }
                             if (numberMove == 3) {
-                                if (cell.getWidth() - speedAnimalNow >= 0) {
-                                    cellNew.setHeight(cell.getHeight());
-                                    cellNew.setWidth(cell.getWidth() - speedAnimalNow);
-                                    cellMap.put(cellNew, animal);
-                                    litrSub.remove();
+
+                                int width = j - speedAnimalNow;
+                                if (width >= 0) {
+
+                                    List <Animal> listMove  = newMap[i][j - speedAnimalNow].getMapOfMove();
+                                    listMove.add(animal);
+                                    newMap[i][j - speedAnimalNow].setMapOfMove(listMove);
+                                    animal.setExtra(true);
                                 }
 
                             }
                             if (numberMove == 4) {
-                                if (cell.getWidth() + speedAnimalNow < newMap.length) {
-                                    cellNew.setHeight(cell.getHeight());
-                                    cellNew.setWidth(cell.getWidth() + speedAnimalNow);
-                                    cellMap.put(cellNew, animal);
-                                    litrSub.remove();
+
+                                int width = j + speedAnimalNow;
+                                if (width < newMap.length) {
+
+                                    List <Animal> listMove  = newMap[i][j + speedAnimalNow].getMapOfMove();
+                                    listMove.add(animal);
+                                    newMap[i][j + speedAnimalNow].setMapOfMove(listMove);
+                                    animal.setExtra(true);
                                 }
                             }
                         }
                     }
                 }
-                // }
             }
         }
-        System.out.println("^^^^^^^^^^^^^^^^!!!!!!!!!!" + cellMap);
-        return cellMap;
-    }
+        // }
+        for (int i = 0; i < newMap.length - 1; i++) {
+            for (int j = 0; j < newMap[i].length; j++) {
 
+                Iterator iteratorForExtra = newMap[i][j].getMap().values().iterator();
+                while (iteratorForExtra.hasNext()) {
+                    List<Object> listExtra = (List<Object>) iteratorForExtra.next();
+                    if (!listExtra.isEmpty() && !listExtra.get(0).getClass().equals(Plants.class)) {
+                        for (int k = 0; k < listExtra.size(); k++) {
+                            Animal animalExtra = (Animal) listExtra.get(k);
+                            if (animalExtra.isExtra()) {
+                                animalExtra.setExtra(false);
+                                listExtra.remove(animalExtra);
+                            }
+
+
+                        }
+                    }
+                }
+
+
+            }
+        }
+    }
 
     public List<Object> allReproduction(List<List<Object>> listCellAnimal) {
         List<Object> listNewObject = new ArrayList<>();
@@ -169,7 +197,7 @@ public class IslandLife {
 
     public Integer allPlantsGrow(List<List<Object>> listCellAnimal) {
         Integer countPlantsGrow = 0;
-        List <Plants>  listPlants =  new ArrayList<Plants>();
+        List<Plants> listPlants = new ArrayList<>();
         Stream stream = listCellAnimal.stream();
         stream.forEach(lists -> {
             for (List<Object> list : listCellAnimal) {
@@ -190,11 +218,84 @@ public class IslandLife {
                 }
             }
         });
-            countPlantsGrow = countPlantsGrow + listPlants.size();
-            return countPlantsGrow;
+        countPlantsGrow = countPlantsGrow + listPlants.size();
+        return countPlantsGrow;
     }
 
-    public void addNewbornsAndMigrants(List <Object> listNewObject,  Map <Cell, Animal> mapOfMove, List<List<Object>> listCellAnimal, Cell[][] newMap){
+    public void addNewborns(List<Object> listNewObject, List<List<Object>> listCellAnimal) {
+
+        ListIterator litr = listCellAnimal.listIterator();
+        while (litr.hasNext()) {
+            List<Object> list = (List<Object>) litr.next();
+
+
+            if (!list.isEmpty()) {
+                for (int i = 0; i < listNewObject.size(); i++) {
+                    List<Animal> animalListTemp = (List) listNewObject.get(i);
+                    if (!animalListTemp.isEmpty()) {
+                        for (Animal animal : animalListTemp) {
+                            if (list.get(0).getClass().equals(animal.getClass())) {
+                                int countMaxAnimal = animal.getCurrentTact();
+                                if (list.size() < countMaxAnimal) {
+                                    list.add(animal);
+
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+            } else {
+                continue;
+            }
+
+
+        }
+    }
+
+
+    public void addMigrants(Cell[][] newMap) {
+        for (int i = 0; i < newMap.length; i++) {
+            for (int j = 0; j < newMap[i].length; j++) {
+
+                List<List<Object>> listCellAnimal = new ArrayList<>(newMap[i][j].getMap().values());
+
+                List<Animal> mapOfMove = newMap[i][j].getMapOfMove();
+                if (!mapOfMove.isEmpty()) {
+                    ListIterator ListIterMap = mapOfMove.listIterator();
+                    while (ListIterMap.hasNext()) {
+                        Animal animalMove = (Animal) ListIterMap.next();
+
+                        ListIterator iterList = listCellAnimal.listIterator();
+                        while (iterList.hasNext()) {
+
+                            List<Object> listOne = (List<Object>) iterList.next();
+
+
+                            if (!listOne.isEmpty() && listOne.get(0).getClass().equals(animalMove)) {
+
+                                Integer countMaxAnimal = animalMove.getCurrentTact();
+                                if (listOne.size() < countMaxAnimal) {
+                                    System.out.print("!!!!!!!!!!!!!" + listOne.size());
+                                    listOne.add(animalMove);
+                                    System.out.println("!!!!!!!!!!!!!" + listOne.size() + "***" + animalMove);
+                                } else {
+                                    continue;
+                                }
+
+
+                            } else {
+                                continue;
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+        }
 
     }
 }

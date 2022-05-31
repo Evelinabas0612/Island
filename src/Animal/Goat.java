@@ -6,33 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Goat extends Animal{
-    private Double currentTact;
+    private Integer maxOnCell = 140;
     private String nameAnimal = "goat";
     private Double weightAnimal = 65.0;
     private int maxSpeedAnimal = 1;
     private Double fullSaturationAnimal = 10.0;
     private int maxTactAnimal = 5;
     private String avatarAnimal = "\uD83D\uDC10";
-    public Map mapOfMenu = Map.of(new Plants(false, false), 100);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Plants(1.0), 100);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Goat(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Goat(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell= maxOnCell;
     }
 
     @Override
@@ -120,7 +118,7 @@ public class Goat extends Animal{
 
     @Override
     public Goat reproduction() {
-        return new Goat(10.0, false, false, false);
+        return new Goat(65.0, 10.0);
     }
 
 

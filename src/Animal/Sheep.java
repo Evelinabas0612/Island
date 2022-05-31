@@ -5,33 +5,31 @@ import Plants.Plants;
 import java.util.*;
 
 public class Sheep extends Animal implements Herbivore {
-    private Double currentTact;
+    private Integer maxOnCell = 156;
     private String nameAnimal = "sheep";
-    private Double weightAnimal = 45.0;
+    private Double weightAnimal =45.0;
     private int maxSpeedAnimal = 1;
     private Double fullSaturationAnimal = 7.0;
     private int maxTactAnimal = 5;
     private String avatarAnimal ="\uD83D\uDC11";
-    public Map mapOfMenu = Map.of(new Plants(false, false), 100);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Plants(1.0), 100);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Sheep(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Sheep(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
 
     @Override
@@ -117,7 +115,7 @@ public class Sheep extends Animal implements Herbivore {
 
     @Override
     public Sheep reproduction() {
-        return new Sheep(7.0, false, false, false);
+        return new Sheep(45.0, 7.0);
     }
 
     @Override
@@ -153,7 +151,7 @@ public class Sheep extends Animal implements Herbivore {
                         Plants plantsOfEaten = (Plants) litrSub.next();
                         if (!plantsOfEaten.isEaten()) {
                             plantsOfEaten.setEaten(true);
-                            System.out.println(plantsOfEaten);
+
                             countEatenPlants++;
 
 

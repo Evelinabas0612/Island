@@ -8,34 +8,32 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class Wolf extends Animal implements Predator {
-    private Double currentTact;
+    private Integer maxOnCell = 30;
     private String nameAnimal = "wolf";
     private Double weightAnimal = 50.0;
     private int maxSpeedAnimal = 3;
     private Double fullSaturationAnimal = 8.0;
     private int maxTactAnimal = 10;
     private String avatarAnimal = "\uD83D\uDC3A";
-    public Map mapOfMenu = Map.of(new Horse(45.0, false, false, false), 10, new Deer(26.0, false, false, false), 15, new Rabbit(1.0, false, false, false), 60, new Hamster(1.0, false, false, false), 80, new Goat(10.0, false, false, false), 60, new Sheep(7.0, false, false, false), 70, new Duck(1.0, false, false, false), 40, new Cow(53.0, false, false, false), 10, new Kangaroo(7.0, false, false, false), 15);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Horse(300.0, 45.0), 10, new Deer(170.0, 26.0), 15, new Rabbit(3.0, 0.45), 60, new Hamster(0.03, 0.075), 80, new Goat(65.0, 10.0), 60, new Sheep(45.0, 7.0), 70, new Duck(1.0, 0.15), 40, new Cow(350.0, 53.0), 10, new Kangaroo(47.0, 7.0), 15);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
 
-    public Wolf(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Wolf(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
 
 
@@ -120,7 +118,7 @@ public class Wolf extends Animal implements Predator {
 
     @Override
     public Wolf reproduction() {
-        return new Wolf(1.0, false, false, false);
+        return new Wolf(50.0, 8.0);
     }
 
     @Override
@@ -159,7 +157,7 @@ public class Wolf extends Animal implements Predator {
                             Animal animalOfEaten = (Animal) litrSub.next();
                             if (!animalOfEaten.isEaten()) {
                                 animalOfEaten.setEaten(true);
-                                System.out.println(animalOfEaten);
+
                                 countEatenAnimal++;
 
 

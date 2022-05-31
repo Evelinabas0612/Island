@@ -24,22 +24,22 @@ public class IslandMap {
     public static Object getPopulationIsland(PopulationIlandsTypes type) {
        Object obj = null;
         switch (type) {
-            case PLANTS -> obj = new Plants(false, false);
-            case BEAR -> obj = new Bear(38.0, false, false, false);
-            case KANGAROO -> obj = new Kangaroo(7.0, false, false, false);
-            case CATERPILLAR -> obj = new Caterpillar(1.0, false, false, false);
-            case DEER -> obj = new Deer(26.0, false, false, false);
-            case DUCK -> obj = new Duck(1.0, false, false, false);
-            case EAGLE -> obj = new Eagle(1.0, false,false,false );
-            case FOX -> obj = new Fox(1.0, false, false, false);
-            case GOAT -> obj = new Goat(10.0, false, false, false);
-            case HAMSTER -> obj = new Hamster(1.0, false, false, false);
-            case HORSE -> obj = new Horse(45.0, false, false, false);
-            case RABBIT -> obj = new Rabbit(1.0, false,false, false);
-            case SHEEP -> obj = new Sheep(7.0, false, false, false);
-            case SNAKE -> obj = new Snake(1.0, false, false, false);
-            case WOLF -> obj = new Wolf(8.0,false,false,false);
-            case COW -> obj = new Cow(53.0, false, false, false);
+            case PLANTS -> obj = new Plants(1.0);
+            case BEAR -> obj = new Bear(250.0, 38.0);
+            case KANGAROO -> obj = new Kangaroo(47.0, 7.0);
+            case CATERPILLAR -> obj = new Caterpillar(0.01, 0.0025);
+            case DEER -> obj = new Deer(170.0, 26.0);
+            case DUCK -> obj = new Duck(1.0, 0.15);
+            case EAGLE -> obj = new Eagle(6.0, 1.0 );
+            case FOX -> obj = new Fox(4.0, 1.0);
+            case GOAT -> obj = new Goat(65.0, 10.0);
+            case HAMSTER -> obj = new Hamster(0.03, 0.075);
+            case HORSE -> obj = new Horse(300.0, 45.0);
+            case RABBIT -> obj = new Rabbit(3.0, 0.45);
+            case SHEEP -> obj = new Sheep(45.0, 7.0);
+            case SNAKE -> obj = new Snake(2.0, 0.03);
+            case WOLF -> obj = new Wolf(50.0, 8.0);
+            case COW -> obj = new Cow(350.0, 53.0);
         }
 
         return obj;
@@ -54,9 +54,9 @@ public class IslandMap {
         Map<String, List<Object>> map = new HashMap<>();
         PopulationIlandsTypes[] types = PopulationIlandsTypes.values();
 
-       // System.out.print("{***");
+
         for (int i = 0; i < types.length; i++) {
-         //   arrayList.clear();
+
             ArrayList<Object> arrayList = new ArrayList<>();
             int numberOfRandom = getRandomNumber();
             if (numberOfRandom > types[i].maximumPopulationType) {
@@ -70,12 +70,12 @@ public class IslandMap {
                 count++;
             }
 
-            System.out.print(" [" + types[i].avatar + "(" + types[i] + ")" + " = " + arrayList.size() + "] ");
+      //      System.out.print(" [" + types[i].avatar + "(" + types[i] + ")" + " = " + arrayList.size() + "] ");
             map.put(types[i].avatar, arrayList);
 
 
         }
-        //System.out.println("***}");
+
 
         return map;
     }

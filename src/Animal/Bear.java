@@ -4,33 +4,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Bear extends Animal{
-    private Double currentTact;
+    private Integer maxOnCell = 7;
     private String nameAnimal = "bear";
     private Double weightAnimal = 250.0;
     private int maxSpeedAnimal = 2;
     private Double fullSaturationAnimal = 38.0;
     private int maxTactAnimal = 15;
     private String avatarAnimal = "\uD83D\uDC3B";
-    public Map mapOfMenu = Map.of(new Snake(1.0, false, false, false), 80, new Horse(45.0, false, false, false), 40, new Deer(26.0, false, false, false), 80, new Rabbit(1.0, false,false,false), 80, new Hamster(1.0, false,false,false),90,new Goat(10.0, false, false, false),70,new Sheep(7.0, false, false, false),70, new Duck(1.0, false,false,false),10,new Cow(53.0, false, false, false),20,new Kangaroo(7.0, false, false, false),50);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Snake(2.0, 0.03), 80, new Horse(300.0, 45.0), 40, new Deer(170.0, 26.0), 80, new Rabbit(3.0, 0.45), 80, new Hamster(0.03, 0.075),90,new Goat(65.0, 10.0),70,new Sheep(45.0, 7.0),70, new Duck(1.0, 0.15),10,new Cow(350.0, 53.0),20,new Kangaroo(47.0, 7.0),50);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Bear(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Bear(Double weightAnimal, Double fullSaturationAnimal) {
+
+        super(weightAnimal, fullSaturationAnimal);
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
     @Override
     public boolean isWeek() {
@@ -119,7 +117,7 @@ public class Bear extends Animal{
 
     @Override
     public Bear reproduction() {
-        return new Bear(38.0, false, false, false);
+        return new Bear(250.0, 38.0);
     }
 
     @Override

@@ -4,33 +4,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Snake extends Animal{
-    private Double currentTact;
+    private Integer maxOnCell = 30;
     private String nameAnimal = "snack";
-    private Double weightAnimal = 2.0;
+    private Double weightAnimal= 2.0;
     private int maxSpeedAnimal = 1;
-    private Double fullSaturationAnimal = 0.3;
+    private Double fullSaturationAnimal = 0.03;
     private int maxTactAnimal = 15;
     private String avatarAnimal ="\uD83D\uDC0D";
-    public Map mapOfMenu = Map.of(new Fox(1.0, false, false, false),15,new Rabbit(1.0, false, false, false), 20,new Duck(1.0, false, false, false),10, new Hamster(1.0, false, false, false),40);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Fox(4.0, 1.0),15,new Rabbit(3.0, 0.45), 20,new Duck(1.0, 0.15),10, new Hamster(0.03, 0.075),40);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Snake(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Snake(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
 
     @Override
@@ -117,7 +115,7 @@ public class Snake extends Animal{
 
     @Override
     public Snake reproduction() {
-        return new Snake(1.0, false, false, false);
+        return new Snake(2.0, 0.03);
     }
 
     @Override

@@ -6,33 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Kangaroo extends Animal{
-    private Double currentTact;
+    private Integer maxOnCell = 149;
     private String nameAnimal = "kangaroo";
     private Double weightAnimal = 47.0;
     private int maxSpeedAnimal = 2;
     private Double fullSaturationAnimal = 7.0;
     private int maxTactAnimal = 8;
     private String avatarAnimal ="\uD83E\uDD98";
-    public Map mapOfMenu = Map.of(new Plants(false, false), 100);
-    private boolean isEaten;
-    private boolean isExtra;
-    private boolean isWeek;
+    public Map mapOfMenu = Map.of(new Plants(1.0), 100);
+    private boolean isEaten = false;
+    private boolean isExtra = false;
+    private boolean isWeek = false;
 
-    public Kangaroo(Double currentTact, boolean isEaten, boolean isExtra, boolean isWeek) {
-        super(currentTact);
-        this.isEaten = isEaten;
-        this.isExtra = isExtra;
-        this.isWeek = isWeek;
+    public Kangaroo(Double weightAnimal, Double fullSaturationAnimal) {
+        super(weightAnimal, fullSaturationAnimal);
+
     }
 
     @Override
-    public Double getCurrentTact() {
-        return currentTact;
+    public Integer getCurrentTact() {
+        return maxOnCell;
     }
 
     @Override
-    public void setCurrentTact(Double currentTact) {
-        this.currentTact = currentTact;
+    public void setCurrentTact(Integer maxOnCell) {
+        this.maxOnCell = maxOnCell;
     }
 
     @Override
@@ -118,7 +116,7 @@ public class Kangaroo extends Animal{
 
     @Override
     public Kangaroo reproduction() {
-        return new Kangaroo(7.0, false, false, false);
+        return new Kangaroo(47.0, 7.0);
     }
 
     @Override
