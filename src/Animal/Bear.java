@@ -2,7 +2,7 @@ package Animal;
 
 import java.util.*;
 
-public class Bear extends Animal implements Predator{
+public class Bear extends Animal implements Predator {
     private Integer maxOnCell = 7;
     private String nameAnimal = "bear";
     private Double weightAnimal = 250.0;
@@ -10,7 +10,7 @@ public class Bear extends Animal implements Predator{
     private Double fullSaturationAnimal = 38.0;
     private int maxTactAnimal = 15;
     private String avatarAnimal = "\uD83D\uDC3B";
-    public Map mapOfMenu = Map.of(new Snake(2.0, 0.03), 80, new Horse(300.0, 45.0), 40, new Deer(170.0, 26.0), 80, new Rabbit(3.0, 0.45), 80, new Hamster(0.03, 0.075),90,new Goat(65.0, 10.0),70,new Sheep(45.0, 7.0),70, new Duck(1.0, 0.15),10,new Cow(350.0, 53.0),20,new Kangaroo(47.0, 7.0),50);
+    public Map mapOfMenu = Map.of(new Snake(2.0, 0.03), 80, new Horse(300.0, 45.0), 40, new Deer(170.0, 26.0), 80, new Rabbit(3.0, 0.45), 80, new Hamster(0.03, 0.075), 90, new Goat(65.0, 10.0), 70, new Sheep(45.0, 7.0), 70, new Duck(1.0, 0.15), 10, new Cow(350.0, 53.0), 20, new Kangaroo(47.0, 7.0), 50);
     private boolean isEaten = false;
     private boolean isExtra = false;
     private boolean isWeek = false;
@@ -29,6 +29,7 @@ public class Bear extends Animal implements Predator{
     public void setCurrentTact(Integer maxOnCell) {
         this.maxOnCell = maxOnCell;
     }
+
     @Override
     public boolean isWeek() {
         return isWeek;
@@ -38,7 +39,6 @@ public class Bear extends Animal implements Predator{
     public void setWeek(boolean week) {
         isWeek = week;
     }
-
 
 
     @Override
@@ -109,9 +109,6 @@ public class Bear extends Animal implements Predator{
     public void setAvatarAnimal(String avatarAnimal) {
         this.avatarAnimal = avatarAnimal;
     }
-
-
-
 
 
     @Override

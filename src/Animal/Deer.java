@@ -4,7 +4,7 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Deer extends Animal implements Herbivore{
+public class Deer extends Animal implements Herbivore {
     private Integer maxOnCell = 41;
     private String nameAnimal = "deer";
     private Double weightAnimal = 170.0;
@@ -112,8 +112,6 @@ public class Deer extends Animal implements Herbivore{
     }
 
 
-
-
     @Override
     public Deer reproduction() {
         return new Deer(170.0, 26.0);
@@ -133,11 +131,12 @@ public class Deer extends Animal implements Herbivore{
     public Integer eatHerbivore(Animal animal, List<List<Object>> listCellAnimal) {
         Integer countEatenPlants = 0;
 
-        Deer deer= (Deer) animal;
+        Deer deer = (Deer) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(deer.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (deer.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = deer.getFullSaturationAnimal();
 
@@ -170,7 +169,6 @@ public class Deer extends Animal implements Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             deer.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

@@ -8,8 +8,8 @@ public class Cell {
 
     private int height;
     private int width;
-    private Map <String, List<Object>> map;
-    private List <Animal> mapOfMove = new ArrayList<>();
+    private Map<String, List<Object>> map;
+    private List<Animal> mapOfMove = new ArrayList<>();
 
     public Map<String, List<Object>> getMap() {
         return map;
@@ -33,7 +33,6 @@ public class Cell {
     public Cell() {
 
     }
-
 
 
     public int getHeight() {

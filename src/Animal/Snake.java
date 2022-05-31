@@ -2,15 +2,15 @@ package Animal;
 
 import java.util.*;
 
-public class Snake extends Animal implements Predator{
+public class Snake extends Animal implements Predator {
     private Integer maxOnCell = 30;
     private String nameAnimal = "snack";
-    private Double weightAnimal= 2.0;
+    private Double weightAnimal = 2.0;
     private int maxSpeedAnimal = 1;
     private Double fullSaturationAnimal = 0.03;
     private int maxTactAnimal = 15;
-    private String avatarAnimal ="\uD83D\uDC0D";
-    public Map mapOfMenu = Map.of(new Fox(4.0, 1.0),15,new Rabbit(3.0, 0.45), 20,new Duck(1.0, 0.15),10, new Hamster(0.03, 0.075),40);
+    private String avatarAnimal = "\uD83D\uDC0D";
+    public Map mapOfMenu = Map.of(new Fox(4.0, 1.0), 15, new Rabbit(3.0, 0.45), 20, new Duck(1.0, 0.15), 10, new Hamster(0.03, 0.075), 40);
     private boolean isEaten = false;
     private boolean isExtra = false;
     private boolean isWeek = false;
@@ -108,8 +108,6 @@ public class Snake extends Animal implements Predator{
     public void setAvatarAnimal(String avatarAnimal) {
         this.avatarAnimal = avatarAnimal;
     }
-
-
 
 
     @Override

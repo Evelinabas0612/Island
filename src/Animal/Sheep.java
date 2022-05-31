@@ -7,11 +7,11 @@ import java.util.*;
 public class Sheep extends Animal implements Herbivore {
     private Integer maxOnCell = 156;
     private String nameAnimal = "sheep";
-    private Double weightAnimal =45.0;
+    private Double weightAnimal = 45.0;
     private int maxSpeedAnimal = 1;
     private Double fullSaturationAnimal = 7.0;
     private int maxTactAnimal = 5;
-    private String avatarAnimal ="\uD83D\uDC11";
+    private String avatarAnimal = "\uD83D\uDC11";
     public Map mapOfMenu = Map.of(new Plants(1.0), 100);
     private boolean isEaten = false;
     private boolean isExtra = false;
@@ -112,7 +112,6 @@ public class Sheep extends Animal implements Herbivore {
     }
 
 
-
     @Override
     public Sheep reproduction() {
         return new Sheep(45.0, 7.0);
@@ -134,9 +133,10 @@ public class Sheep extends Animal implements Herbivore {
 
         Sheep sheep = (Sheep) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+
         //Integer proc = (Integer) mapOfMenu.get(indexOfListFood);
-        if(sheep.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (sheep.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = sheep.getFullSaturationAnimal();
 
@@ -162,17 +162,16 @@ public class Sheep extends Animal implements Herbivore {
                     }
                 }
             }
-                if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
-                    fullSaturationNow = fullSaturationNow + calories;
-                } else {
+            if (calories <= this.fullSaturationAnimal - fullSaturationNow) {
+                fullSaturationNow = fullSaturationNow + calories;
+            } else {
 
-                    fullSaturationNow = fullSaturationAnimal;
-                }
-                sheep.setFullSaturationAnimal(fullSaturationNow);
-
-
-
+                fullSaturationNow = fullSaturationAnimal;
             }
+            sheep.setFullSaturationAnimal(fullSaturationNow);
+
+
+        }
 
         return countEatenPlants;
 

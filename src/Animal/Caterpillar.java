@@ -4,7 +4,7 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Caterpillar extends Animal implements Herbivore{
+public class Caterpillar extends Animal implements Herbivore {
     private Integer maxOnCell = 1000;
     private String nameAnimal = "caterpillar";
     private Double weightAnimal = 0.01;
@@ -18,7 +18,7 @@ public class Caterpillar extends Animal implements Herbivore{
     private boolean isWeek = false;
 
     public Caterpillar(Double weightAnimal, Double fullSaturationAnimal) {
-        super(weightAnimal,fullSaturationAnimal);
+        super(weightAnimal, fullSaturationAnimal);
     }
 
     @Override
@@ -111,11 +111,6 @@ public class Caterpillar extends Animal implements Herbivore{
     }
 
 
-
-
-
-
-
     @Override
     public Caterpillar reproduction() {
         return new Caterpillar(0.01, 0.0025);
@@ -137,9 +132,10 @@ public class Caterpillar extends Animal implements Herbivore{
 
         Caterpillar caterpillar = (Caterpillar) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
 
-        if(caterpillar.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+
+        if (caterpillar.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = caterpillar.getFullSaturationAnimal();
 
@@ -172,7 +168,6 @@ public class Caterpillar extends Animal implements Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             caterpillar.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

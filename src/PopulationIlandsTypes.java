@@ -4,31 +4,30 @@ public enum PopulationIlandsTypes {
     BEAR("\uD83D\uDC3B", 7),
     KANGAROO("\uD83E\uDD98", 149),
     CATERPILLAR("\uD83D\uDC1B", 1000),
-    DEER ( "\uD83E\uDD8C", 41),
+    DEER("\uD83E\uDD8C", 41),
     DUCK("\uD83E\uDD86", 500),
     EAGLE("\uD83E\uDD85", 166),
     FOX("\uD83E\uDD8A", 50),
-    GOAT ("\uD83D\uDC10", 140),
+    GOAT("\uD83D\uDC10", 140),
     HAMSTER("\uD83D\uDC39", 500),
     HORSE("\uD83D\uDC0E", 23),
     RABBIT("\uD83D\uDC07", 750),
     SHEEP("\uD83D\uDC11", 156),
     SNAKE("\uD83D\uDC0D", 123),
     WOLF("\uD83D\uDC3A", 30),
-    COW("\uD83D\uDC2E", 20) ;
+    COW("\uD83D\uDC2E", 20);
 
 
     public int maximumPopulationType;
     public String avatar;
 
 
-
-    PopulationIlandsTypes (String avatar, int maximumPopulationType){
-        this.avatar=avatar;
-        this.maximumPopulationType=maximumPopulationType;
+    PopulationIlandsTypes(String avatar, int maximumPopulationType) {
+        this.avatar = avatar;
+        this.maximumPopulationType = maximumPopulationType;
     }
 
-    PopulationIlandsTypes(){
+    PopulationIlandsTypes() {
 
     }
 }

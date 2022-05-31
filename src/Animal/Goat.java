@@ -4,7 +4,7 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Goat extends Animal implements Herbivore{
+public class Goat extends Animal implements Herbivore {
     private Integer maxOnCell = 140;
     private String nameAnimal = "goat";
     private Double weightAnimal = 65.0;
@@ -29,7 +29,7 @@ public class Goat extends Animal implements Herbivore{
 
     @Override
     public void setCurrentTact(Integer maxOnCell) {
-        this.maxOnCell= maxOnCell;
+        this.maxOnCell = maxOnCell;
     }
 
     @Override
@@ -112,14 +112,10 @@ public class Goat extends Animal implements Herbivore{
     }
 
 
-
-
-
     @Override
     public Goat reproduction() {
         return new Goat(65.0, 10.0);
     }
-
 
 
     @Override
@@ -138,9 +134,10 @@ public class Goat extends Animal implements Herbivore{
 
         Goat goat = (Goat) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(goat.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (goat.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = goat.getFullSaturationAnimal();
 
@@ -173,7 +170,6 @@ public class Goat extends Animal implements Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             goat.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

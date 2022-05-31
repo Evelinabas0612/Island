@@ -6,10 +6,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Duck extends Animal implements Predator, Herbivore{
-    private Integer maxOnCell = 200;;
+public class Duck extends Animal implements Predator, Herbivore {
+    private Integer maxOnCell = 200;
+    ;
     private String nameAnimal = "duck";
-    private Double weightAnimal =1.0;
+    private Double weightAnimal = 1.0;
     private int maxSpeedAnimal = 1;
     private Double fullSaturationAnimal = 0.15;
     private int maxTactAnimal = 4;
@@ -53,6 +54,7 @@ public class Duck extends Animal implements Predator, Herbivore{
     public void setCurrentTact(Integer maxOnCell) {
         this.maxOnCell = maxOnCell;
     }
+
     @Override
     public boolean isEaten() {
         return isEaten;
@@ -123,9 +125,6 @@ public class Duck extends Animal implements Predator, Herbivore{
     }
 
 
-
-
-
     @Override
     public Duck reproduction() {
         return new Duck(1.0, 0.15);
@@ -144,11 +143,10 @@ public class Duck extends Animal implements Predator, Herbivore{
     @Override
     public Integer eat(Animal animal, List<List<Object>> listCellAnimal) {
         Integer countEatenAnimal = 0;
-        List <Animal> listFood = new ArrayList<>();
+        List<Animal> listFood = new ArrayList<>();
         Duck duck = (Duck) animal;
-        for (Object entry: mapOfMenu.keySet())
-        {
-            if (!entry.getClass().equals(Plants.class)){
+        for (Object entry : mapOfMenu.keySet()) {
+            if (!entry.getClass().equals(Plants.class)) {
                 listFood.add((Animal) entry);
             }
         }
@@ -205,18 +203,18 @@ public class Duck extends Animal implements Predator, Herbivore{
         Integer countEatenPlants = 0;
 
         Duck duck = (Duck) animal;
-        List <Plants> listFood= new ArrayList<>();
-        for (Object entry: mapOfMenu.keySet())
-        {
-            if (entry.getClass().equals(Plants.class)){
+        List<Plants> listFood = new ArrayList<>();
+        for (Object entry : mapOfMenu.keySet()) {
+            if (entry.getClass().equals(Plants.class)) {
                 listFood.add((Plants) entry);
             }
         }
 
 
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
 
-        if(duck.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+
+        if (duck.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = duck.getFullSaturationAnimal();
 
@@ -249,7 +247,6 @@ public class Duck extends Animal implements Predator, Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             duck.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

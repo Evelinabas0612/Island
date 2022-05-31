@@ -1,7 +1,7 @@
 package Plants;
 
 public class Plants {
-    private  Integer maxOnCell = 10000;
+    private Integer maxOnCell = 10000;
 
     public Integer getMaxOnCell() {
         return maxOnCell;
@@ -64,8 +64,6 @@ public class Plants {
     public void setWeightPlants(Double weightPlants) {
         this.weightPlants = weightPlants;
     }
-
-
 
 
 }

@@ -1,6 +1,4 @@
-import Animal.Animal;
 
-import java.util.*;
 import java.util.concurrent.*;
 
 
@@ -14,33 +12,42 @@ public class Island {
 
 
         for (int i = 0; i < 30; i++) {
-            Runnable runnable = () -> {
+            Runnable runnableOne = () -> {
 
                 islandLife.oneDay(newMap);
             };
+
+            Runnable runnableTwo = () -> {
+
+                islandLife.printIsland(newMap);
+            };
+
             ExecutorService executorService = Executors.newCachedThreadPool();
-            executorService.submit(runnable);
+            try {
+
+                executorService.submit(runnableOne);
+                Thread.sleep(10);
+                executorService.submit(runnableTwo);
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
 
             executorService.shutdown();
+
 
             ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
             scheduledExecutorService.scheduleAtFixedRate(islandLife, 0, 5, TimeUnit.SECONDS);
             scheduledExecutorService.shutdown();
 
-    }
-
-
-
-    }
-
-
-
-
-
-
+        }
 
 
     }
+
+
+}
 
 
 

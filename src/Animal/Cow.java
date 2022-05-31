@@ -4,8 +4,9 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Cow extends Animal implements Herbivore{
-    private Integer maxOnCell = 20;;
+public class Cow extends Animal implements Herbivore {
+    private Integer maxOnCell = 20;
+    ;
     private String nameAnimal = "cow";
     private Double weightAnimal = 350.0;
     private int maxSpeedAnimal = 1;
@@ -112,12 +113,6 @@ public class Cow extends Animal implements Herbivore{
     }
 
 
-
-
-
-
-
-
     @Override
     public Cow reproduction() {
         return new Cow(350.0, 53.0);
@@ -139,9 +134,10 @@ public class Cow extends Animal implements Herbivore{
 
         Cow cow = (Cow) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(cow.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (cow.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = cow.getFullSaturationAnimal();
 
@@ -176,11 +172,10 @@ public class Cow extends Animal implements Herbivore{
             cow.setFullSaturationAnimal(fullSaturationNow);
 
 
-
         }
 
         return countEatenPlants;
 
     }
-    }
+}
 

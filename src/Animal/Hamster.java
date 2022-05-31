@@ -4,7 +4,7 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Hamster extends Animal implements Herbivore{
+public class Hamster extends Animal implements Herbivore {
     private Integer maxOnCell = 500;
     private String nameAnimal = "hamster";
     private Double weightAnimal = 0.03;
@@ -112,13 +112,6 @@ public class Hamster extends Animal implements Herbivore{
     }
 
 
-
-
-
-
-
-
-
     @Override
     public Hamster reproduction() {
         return new Hamster(0.03, 0.075);
@@ -140,9 +133,10 @@ public class Hamster extends Animal implements Herbivore{
 
         Hamster hamster = (Hamster) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(hamster.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (hamster.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = hamster.getFullSaturationAnimal();
 
@@ -175,7 +169,6 @@ public class Hamster extends Animal implements Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             hamster.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

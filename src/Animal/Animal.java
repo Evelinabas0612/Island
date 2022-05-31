@@ -10,7 +10,7 @@ public abstract class Animal {
     private int maxSpeedAnimal;
     private Double fullSaturationAnimal;
     private String avatarAnimal;
-    private Map  mapOfMenu;
+    private Map mapOfMenu;
     private boolean isEaten; // пометка съедено ли животное
     private boolean isExtra; //не лишнее ли животное на клетке
     private boolean isWeek; //// пометка, что животное полностью истощено
@@ -25,9 +25,8 @@ public abstract class Animal {
     }
 
     public void setCurrentTact(Integer maxOnCell) {
-        this.maxOnCell= maxOnCell;
+        this.maxOnCell = maxOnCell;
     }
-
 
 
     public String getNameAnimal() {
@@ -104,11 +103,11 @@ public abstract class Animal {
     }
 
 
-
     public abstract Animal reproduction();
-    abstract List<Animal> move(Map<String, List<Object>> map);
-    abstract void end(Map<String, List<Object>> map);
 
+    abstract List<Animal> move(Map<String, List<Object>> map);
+
+    abstract void end(Map<String, List<Object>> map);
 
 
 }

@@ -133,9 +133,10 @@ public class Rabbit extends Animal implements Herbivore {
 
         Rabbit rabbit = (Rabbit) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(rabbit.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (rabbit.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = rabbit.getFullSaturationAnimal();
 
@@ -168,7 +169,6 @@ public class Rabbit extends Animal implements Herbivore {
                 fullSaturationNow = fullSaturationAnimal;
             }
             rabbit.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

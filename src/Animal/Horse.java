@@ -4,14 +4,14 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Horse extends Animal implements Herbivore{
+public class Horse extends Animal implements Herbivore {
     private Integer maxOnCell = 23;
     private String nameAnimal = "horse";
     private Double weightAnimal = 300.0;
     private int maxSpeedAnimal = 3;
-    private Double fullSaturationAnimal= 45.0;
+    private Double fullSaturationAnimal = 45.0;
     private int maxTactAnimal = 5;
-    private String avatarAnimal ="\uD83D\uDC0E";
+    private String avatarAnimal = "\uD83D\uDC0E";
     public Map mapOfMenu = Map.of(new Plants(1.0), 100);
     private boolean isEaten = false;
     private boolean isExtra = false;
@@ -133,9 +133,10 @@ public class Horse extends Animal implements Herbivore{
 
         Horse horse = (Horse) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(horse.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (horse.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = horse.getFullSaturationAnimal();
 
@@ -168,7 +169,6 @@ public class Horse extends Animal implements Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             horse.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

@@ -4,14 +4,14 @@ import Plants.Plants;
 
 import java.util.*;
 
-public class Kangaroo extends Animal implements Herbivore{
+public class Kangaroo extends Animal implements Herbivore {
     private Integer maxOnCell = 149;
     private String nameAnimal = "kangaroo";
     private Double weightAnimal = 47.0;
     private int maxSpeedAnimal = 2;
     private Double fullSaturationAnimal = 7.0;
     private int maxTactAnimal = 8;
-    private String avatarAnimal ="\uD83E\uDD98";
+    private String avatarAnimal = "\uD83E\uDD98";
     public Map mapOfMenu = Map.of(new Plants(1.0), 100);
     private boolean isEaten = false;
     private boolean isExtra = false;
@@ -112,7 +112,6 @@ public class Kangaroo extends Animal implements Herbivore{
     }
 
 
-
     @Override
     public Kangaroo reproduction() {
         return new Kangaroo(47.0, 7.0);
@@ -134,9 +133,10 @@ public class Kangaroo extends Animal implements Herbivore{
 
         Kangaroo kangaroo = (Kangaroo) animal;
         List<Plants> listFood = new ArrayList(mapOfMenu.keySet());
-        Plants indexOfListFood = listFood.get(0);;
+        Plants indexOfListFood = listFood.get(0);
+        ;
 
-        if(kangaroo.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
+        if (kangaroo.getFullSaturationAnimal() <= this.getFullSaturationAnimal()) {
             double calories = indexOfListFood.getWeightPlants();
             double fullSaturationNow = kangaroo.getFullSaturationAnimal();
 
@@ -169,7 +169,6 @@ public class Kangaroo extends Animal implements Herbivore{
                 fullSaturationNow = fullSaturationAnimal;
             }
             kangaroo.setFullSaturationAnimal(fullSaturationNow);
-
 
 
         }

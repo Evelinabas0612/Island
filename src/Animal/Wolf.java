@@ -184,9 +184,9 @@ public class Wolf extends Animal implements Predator {
 
         return countEatenAnimal;
 
-        }
-
     }
+
+}
 
 
 

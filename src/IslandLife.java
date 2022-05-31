@@ -7,7 +7,7 @@ import java.util.*;
 
 import java.util.stream.Stream;
 
-public class IslandLife implements Runnable{
+public class IslandLife implements Runnable {
     private int day = 0;
 
     public int getDay() {
@@ -20,66 +20,71 @@ public class IslandLife implements Runnable{
 //public ExecutorService executorService;
 
 
-        public Cell [][] createIslandMap(int height, int width) {
-            Cell[][] newMap = new Cell[height][width];
+    public Cell[][] createIslandMap(int height, int width) {
+        Cell[][] newMap = new Cell[height][width];
 
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    newMap[i][j] = new Cell();
-                    newMap[i][j].setMap(getMapOfPopulation());
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                newMap[i][j] = new Cell();
+                newMap[i][j].setMap(getMapOfPopulation());
 
 
-                }
-                }
-
-            printIsland(newMap);
-            return newMap;
+            }
         }
 
-        public void oneDay(Cell[][] newMap){
-            int allNewbornForTact = 0;
-            int allDeleteForTact = 0;
-            int allEatenForTact = 0;
-            int allPlantsGrow = 0;
-            int allMigrant = 0;
+        printIsland(newMap);
+        return newMap;
+    }
+
+    public void oneDay(Cell[][] newMap) {
+        int allNewbornForTact = 0;
+        int allDeleteForTact = 0;
+        int allEatenForTact = 0;
+        int allPlantsGrow = 0;
+        int allMigrant = 0;
         //  executorService = Executors.newCachedThreadPool();
 
-            for (Cell[] cells : newMap) {
-                for (Cell cell : cells) {
-                        List<List<Object>> listCellAnimal = new ArrayList<>(cell.getMap().values());
-                        List <Object> listOfDeleteWeek = allDelete(listCellAnimal);
-                        Map<String,Integer> mapOfStatEaten = allEat(listCellAnimal);
+        for (Cell[] cells : newMap) {
+            for (Cell cell : cells) {
+                List<List<Object>> listCellAnimal = new ArrayList<>(cell.getMap().values());
+                List<Object> listOfDeleteWeek = allDelete(listCellAnimal);
+                Map<String, Integer> mapOfStatEaten = allEat(listCellAnimal);
 
-                        List <Object> listOfDeleteEaten = allDelete(listCellAnimal);
+                List<Object> listOfDeleteEaten = allDelete(listCellAnimal);
 
-                        List <Object> listNewborns = allReproduction(listCellAnimal);
+                List<Object> listNewborns = allReproduction(listCellAnimal);
 
-                        addNewborns(listNewborns, listCellAnimal);
+                addNewborns(listNewborns, listCellAnimal);
 
-                        Integer countPlantsGrow = allPlantsGrow(listCellAnimal);
+                Integer countPlantsGrow = allPlantsGrow(listCellAnimal);
 
-                        allNewbornForTact += listNewborns.size();
-                        allDeleteForTact += listOfDeleteWeek.size() + listOfDeleteEaten.size();
-                        allEatenForTact += listOfDeleteEaten.size();
-                        allPlantsGrow += countPlantsGrow;
-                    }
+                allNewbornForTact += listNewborns.size();
 
-                }
-            System.out.println();
-            System.out.println("Статистика:");
-            System.out.println("Родилось всего животных:"+ allNewbornForTact);
-            System.out.println("Новые растения:"+ allPlantsGrow);
-            System.out.println("Вымерло всего: " + allDeleteForTact + " : из них съедено:" + allEatenForTact);
+                allDeleteForTact += listOfDeleteWeek.size() + listOfDeleteEaten.size();
+                allEatenForTact += listOfDeleteEaten.size();
+                allPlantsGrow += countPlantsGrow;
+                System.out.println();
+                System.out.println("Статистика по ячейке:");
+                System.out.println("Родилось всего животных в ячейке:" + listNewborns.size());
+                System.out.println("Съедено в ячейке:" + listOfDeleteEaten.size());
 
-            allMigrant += allMove(newMap);
-            addMigrants(newMap);
-
-            System.out.println("Всего переселилось:"+ allMigrant);
-            printIsland(newMap);
-
+            }
 
         }
+        System.out.println();
+        System.out.println("Статистика:");
+        System.out.println("Родилось всего животных:" + allNewbornForTact);
+        System.out.println("Новые растения:" + allPlantsGrow);
+        System.out.println("Вымерло всего: " + allDeleteForTact + " : из них съедено:" + allEatenForTact);
 
+        allMigrant += allMove(newMap);
+        addMigrants(newMap);
+
+        System.out.println("Всего переселилось:" + allMigrant);
+        //printIsland(newMap);
+
+
+    }
 
 
     public static Object getPopulationIsland(PopulationIlandsTypes type) {
@@ -91,7 +96,7 @@ public class IslandLife implements Runnable{
             case CATERPILLAR -> obj = new Caterpillar(0.01, 0.0025);
             case DEER -> obj = new Deer(170.0, 26.0);
             case DUCK -> obj = new Duck(1.0, 0.15);
-            case EAGLE -> obj = new Eagle(6.0, 1.0 );
+            case EAGLE -> obj = new Eagle(6.0, 1.0);
             case FOX -> obj = new Fox(4.0, 1.0);
             case GOAT -> obj = new Goat(65.0, 10.0);
             case HAMSTER -> obj = new Hamster(0.03, 0.075);
@@ -142,8 +147,7 @@ public class IslandLife implements Runnable{
     }
 
 
-
-  public Map<String, Integer> allEat(List<List<Object>> listCellAnimal) {
+    public Map<String, Integer> allEat(List<List<Object>> listCellAnimal) {
         Integer staticOfEatenAnimal = 0;
         Integer staticOfEatenPlants = 0;
         Map<String, Integer> mapOfStat = new HashMap<>();
@@ -201,7 +205,7 @@ public class IslandLife implements Runnable{
 
     public Integer allMove(Cell[][] newMap) {
         Integer countMigrant = 0;
-        for (int i = 0; i < newMap.length-1; i++) {
+        for (int i = 0; i < newMap.length - 1; i++) {
             for (int j = 0; j < newMap[i].length; j++) {
 
                 List<List<Object>> listCellAnimal = new ArrayList<>(newMap[i][j].getMap().values());
@@ -227,7 +231,7 @@ public class IslandLife implements Runnable{
                             if (numberMove == 1) {
                                 int height = i - speedAnimalNow;
                                 if (height >= 0) {
-                                    List <Animal> listMove = newMap[i - speedAnimalNow][j].getMapOfMove();
+                                    List<Animal> listMove = newMap[i - speedAnimalNow][j].getMapOfMove();
                                     listMove.add(animal);
                                     newMap[i - speedAnimalNow][j].setMapOfMove(listMove);
                                     animal.setExtra(true);
@@ -239,7 +243,7 @@ public class IslandLife implements Runnable{
 
                                 if (height < newMap.length) {
 
-                                    List <Animal> listMove = newMap[i + speedAnimalNow][j].getMapOfMove();
+                                    List<Animal> listMove = newMap[i + speedAnimalNow][j].getMapOfMove();
                                     listMove.add(animal);
                                     newMap[i + speedAnimalNow][j].setMapOfMove(listMove);
                                     animal.setExtra(true);
@@ -251,7 +255,7 @@ public class IslandLife implements Runnable{
                                 int width = j - speedAnimalNow;
                                 if (width >= 0) {
 
-                                    List <Animal> listMove  = newMap[i][j - speedAnimalNow].getMapOfMove();
+                                    List<Animal> listMove = newMap[i][j - speedAnimalNow].getMapOfMove();
                                     listMove.add(animal);
                                     newMap[i][j - speedAnimalNow].setMapOfMove(listMove);
                                     animal.setExtra(true);
@@ -264,7 +268,7 @@ public class IslandLife implements Runnable{
                                 int width = j + speedAnimalNow;
                                 if (width < newMap.length) {
 
-                                    List <Animal> listMove  = newMap[i][j + speedAnimalNow].getMapOfMove();
+                                    List<Animal> listMove = newMap[i][j + speedAnimalNow].getMapOfMove();
                                     listMove.add(animal);
                                     newMap[i][j + speedAnimalNow].setMapOfMove(listMove);
                                     animal.setExtra(true);
@@ -439,7 +443,7 @@ public class IslandLife implements Runnable{
     }
 
 
-    public void printIsland(Cell[][] newMap){
+    public void printIsland(Cell[][] newMap) {
 
         for (Cell[] cells : newMap) {
             for (Cell cell : cells) {
@@ -447,13 +451,13 @@ public class IslandLife implements Runnable{
                 ListIterator litr = listCellAnimal.listIterator();
                 while (litr.hasNext()) {
                     List<Object> list = (List<Object>) litr.next();
-                    if (!list.isEmpty() && list.get(0).getClass().equals(Plants.class)){
-                        Plants plants = (Plants)list.get(0);
+                    if (!list.isEmpty() && list.get(0).getClass().equals(Plants.class)) {
+                        Plants plants = (Plants) list.get(0);
                         String avatar = plants.getAvatarPlants();
                         System.out.print(avatar);
                     }
-                    if (!list.isEmpty() && !list.get(0).getClass().equals(Plants.class)){
-                        Animal animal= (Animal) list.get(0);
+                    if (!list.isEmpty() && !list.get(0).getClass().equals(Plants.class)) {
+                        Animal animal = (Animal) list.get(0);
                         String avatar = animal.getAvatarAnimal();
                         System.out.print(avatar);
                     }
@@ -465,11 +469,11 @@ public class IslandLife implements Runnable{
 
     @Override
     public void run() {
-           int newDay = getDay();
-           while (newDay<1000) {
-               System.out.println("День" + newDay);
+        int newDay = getDay();
+        while (newDay < 1000) {
+            System.out.println("День" + newDay);
 
-               newDay++;
-           }
+            newDay++;
+        }
     }
 }

@@ -2,7 +2,7 @@ package Animal;
 
 import java.util.*;
 
-public class Fox extends Animal implements Predator{
+public class Fox extends Animal implements Predator {
     private Integer maxOnCell = 50;
     private String nameAnimal = "fox";
     private Double weightAnimal = 4.0;
@@ -10,7 +10,7 @@ public class Fox extends Animal implements Predator{
     private Double fullSaturationAnimal = 1.0;
     private int maxTactAnimal = 8;
     private String avatarAnimal = "\uD83E\uDD8A";
-    public Map mapOfMenu = Map.of(new Rabbit(3.0, 0.45),90, new Hamster(0.03, 0.075), 90, new Duck(1.0, 0.15), 80);
+    public Map mapOfMenu = Map.of(new Rabbit(3.0, 0.45), 90, new Hamster(0.03, 0.075), 90, new Duck(1.0, 0.15), 80);
     private boolean isEaten = false;
     private boolean isExtra = false;
     private boolean isWeek = false;
@@ -19,6 +19,7 @@ public class Fox extends Animal implements Predator{
         super(weightAnimal, fullSaturationAnimal);
 
     }
+
     @Override
     public Integer getCurrentTact() {
         return maxOnCell;
@@ -110,7 +111,7 @@ public class Fox extends Animal implements Predator{
 
 
     @Override
-   public Fox reproduction() {
+    public Fox reproduction() {
         return new Fox(4.0, 1.0);
     }
 
