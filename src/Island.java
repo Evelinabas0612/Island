@@ -1,48 +1,48 @@
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Island {
 
 
     public static void main(String[] args) {
-
+        AtomicInteger day = new AtomicInteger();
         IslandLife islandLife = new IslandLife();
         Cell[][] newMap = islandLife.createIslandMap(5, 5);
 
+        Runnable runnableZero = () -> {
+
+            day.set(day.get() + +1);
+            System.out.println("День - "+day);
+        };
+        Runnable runnableOne = () -> {
+
+            islandLife.oneDay(newMap);
+        };
+
+        Runnable runnableTwo = () -> {
+
+            islandLife.printIsland(newMap);
+        };
+
+
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
 
         for (int i = 0; i < 30; i++) {
-            Runnable runnableOne = () -> {
 
-                islandLife.oneDay(newMap);
-            };
+            scheduledExecutorService.scheduleAtFixedRate(runnableZero, 2, 5, TimeUnit.SECONDS);
 
-            Runnable runnableTwo = () -> {
+            executorService.submit(runnableOne);
+            executorService.submit(runnableTwo);
 
-                islandLife.printIsland(newMap);
-            };
-
-            ExecutorService executorService = Executors.newCachedThreadPool();
-            try {
-
-                executorService.submit(runnableOne);
-                Thread.sleep(10);
-                executorService.submit(runnableTwo);
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-            executorService.shutdown();
-
-
-            ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-            scheduledExecutorService.scheduleAtFixedRate(islandLife, 0, 5, TimeUnit.SECONDS);
-            scheduledExecutorService.shutdown();
 
         }
-
+        executorService.shutdown();
+        scheduledExecutorService.shutdown();
 
     }
 
